@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\UrlRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: UrlRepository::class)]
+#[ORM\Table(name: 'urls')]
+class Url
+{
+    /**
+     * Primary key.
+     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    /**
+     * shortCode.
+     */
+    #[ORM\Column(length: 20)]
+    private ?string $shortCode = null;
+
+    /**
+     * Created at.
+     */
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    /**
+     * Updated at.
+     */
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * Getter for Id.
+     *
+     * @return int|null Id
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Getter for short code.
+     *
+     * @param \string|null $shortCode Short Code
+     */
+    public function getShortCode(): ?string
+    {
+        return $this->shortCode;
+    }
+
+    /**
+     * Setter for short code.
+     *
+     * @param \string|null $shortCode Short Code
+     */
+    public function setShortCode(string $shortCode): static
+    {
+        $this->shortCode = $shortCode;
+
+        return $this;
+    }
+
+    /**
+     * Getter for created at.
+     *
+     * @return \DateTimeImmutable|null Created at
+     */
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+    /**
+     * Setter for created at.
+     *
+     * @param \DateTimeImmutable|null $createdAt Created at
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Getter for updated at.
+     *
+     * @return \DateTimeImmutable|null Updated at
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Setter for updated at.
+     *
+     * @param \DateTimeImmutable|null $updatedAt Updated at
+     */
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+}

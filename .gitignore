@@ -6,3 +6,5 @@ vendor
 .phpunit.result.cache
 .env
 .env.*
+.DS_Store
+**/.DS_Store
