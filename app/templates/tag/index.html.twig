@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.tag_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.tag_list'|trans }}</h1>
+    {% if tags is defined and tags|length %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label.id'|trans }}</th>
+                <th>{{ 'label.name'|trans }}</th>
+                <th>{{ 'label.created_at'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tag in tags %}
+                <tr>
+                    <td>{{ tag.id }}</td>
+                    <td>{{ tag.name }}</td>
+                    <td>{{ tag.createdAt|date('Y/m/d') }}</td>
+                    <td>
+                        <a href="{{ url('tag_view', {id: tag.id}) }}" title="{{ 'action.view'|trans }}">
+                            {{ 'action.view'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

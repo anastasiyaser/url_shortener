@@ -1,61 +1,61 @@
 <?php
 /**
- * Url controller.
+ * Tag controller.
  */
 
 namespace App\Controller;
 
-use App\Entity\Url;
-use App\Repository\UrlRepository;
+use App\Entity\Tag;
+use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Class UrlController.
+ * Class TagController.
  */
-#[Route('/url')]
-class UrlController extends AbstractController
+#[Route('/tag')]
+class TagController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param UrlRepository $urlRepository Task repository
+     * @param TagRepository $tagRepository Tag repository
      *
      * @return Response HTTP response
      */
     #[Route(
-        name: 'url_index',
+        name: 'tag_index',
         methods: ['GET']
     )]
-    public function index(UrlRepository $urlRepository): Response
+    public function index(TagRepository $tagRepository): Response
     {
-        $urls = $urlRepository->findAll();
+        $tags = $tagRepository->findAll();
 
         return $this->render(
-            'url/index.html.twig',
-            ['urls' => $urls]
+            'tag/index.html.twig',
+            ['tags' => $tags]
         );
     }
 
     /**
      * View action.
      *
-     * @param Url $url Url entity
+     * @param Tag $tag Tag entity
      *
      * @return Response HTTP response
      */
     #[Route(
         '/{id}',
-        name: 'url_view',
+        name: 'tag_view',
         requirements: ['id' => '[1-9]\d*'],
         methods: ['GET']
     )]
-    public function view(Url $url): Response
+    public function view(Tag $tag): Response
     {
         return $this->render(
-            'url/view.html.twig',
-            ['url' => $url]
+            'tag/view.html.twig',
+            ['tag' => $tag]
         );
     }
 }
