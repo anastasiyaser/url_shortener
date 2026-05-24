@@ -6,6 +6,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Tag;
+use Doctrine\Persistence\ObjectManager;
+use Faker\Generator;
 
 /**
  * Class TagFixtures.
@@ -14,18 +16,24 @@ class TagFixtures extends AbstractBaseFixtures
 {
     /**
      * Load data.
+     *
+     * @psalm-suppress PossiblyNullPropertyFetch
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress UnusedClosureParam
      */
     public function loadData(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+        if (!$this->manager instanceof ObjectManager || !$this->faker instanceof Generator) {
+            return;
+        }
+        $this->createMany(20, 'tag', function (int $i){
             $tag = new Tag();
-            $tag->setName($this->faker->word);
+            $tag->setName($this->faker->word());
             $tag->setCreatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
-            $this->manager->persist($tag);
-        }
+            return $tag;
+        });
 
-        $this->manager->flush();
     }
 }

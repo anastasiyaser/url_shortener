@@ -16,6 +16,14 @@
             <dd>{{ url.updatedAt|date('Y/m/d') }}</dd>
             <dt>{{ 'label.short_code'|trans }}</dt>
             <dd>{{  url.shortCode }}</dd>
+            <dt>{{ 'label.tags'|trans }}</dt>
+            <dd>
+                {% for tag in url.tags %}
+                    {{ tag.name }}{% if not loop.last %}, {% endif %}
+                {% else %}
+                    -
+                {% endfor %}
+            </dd>
         </dl>
         <p>
             <a href="{{ url('url_index') }}" title="{{ 'action.back_to_list'|trans }}">
