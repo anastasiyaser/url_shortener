@@ -47,8 +47,10 @@ class UrlRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->createQueryBuilder('url')
-            ->select('url', 'tag')
+            ->select(
+                'partial url.{id, createdAt, updatedAt, shortCode}',
+                'partial tag.{id, name, createdAt}'
+            )
             ->join('url.tags', 'tag');
     }
 }
-

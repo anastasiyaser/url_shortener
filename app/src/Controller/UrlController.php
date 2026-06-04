@@ -6,11 +6,11 @@
 namespace App\Controller;
 
 use App\Entity\Url;
-use App\Repository\UrlRepository;
-use Knp\Component\Pager\PaginatorInterface;
+use App\Service\UrlService;
+use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -20,31 +20,25 @@ use Symfony\Component\Routing\Attribute\Route;
 class UrlController extends AbstractController
 {
     /**
+     * Constructor.
+     */
+    public function __construct(private readonly UrlServiceInterface $urlService)
+    {
+    }
+    /**
      * Index action.
      *
-     * @param Request            $request        HTTP Request
-     * @param UrlRepository     $urlRepository Url repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param int $page Page number
      *
      * @return Response HTTP response
      */
-
     #[Route(
         name: 'url_index',
         methods: ['GET']
     )]
-    public function index(Request $request, UrlRepository $urlRepository, PaginatorInterface $paginator): Response
+    public function index(#[MapQueryParameter] int $page = 1): Response
     {
-        $pagination = $paginator->paginate(
-            $urlRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            UrlRepository::PAGINATOR_ITEMS_PER_PAGE,
-            [
-                'sortFieldAllowList' => ['url.id', 'url.createdAt', 'url.updatedAt'],
-                'defaultSortFieldName' => 'url.updatedAt',
-                'defaultSortDirection' => 'desc',
-            ]
-        );
+        $pagination = $this->urlService->getPaginatedList($page);
 
         return $this->render('url/index.html.twig', ['pagination' => $pagination]);
     }
