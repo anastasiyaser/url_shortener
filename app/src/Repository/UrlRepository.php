@@ -48,7 +48,7 @@ class UrlRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('url')
             ->select(
-                'partial url.{id, createdAt, updatedAt, shortCode}',
+                'partial url.{id, createdAt, updatedAt, originalUrl, shortCode, guestEmail, clickCount }',
                 'partial tag.{id, name, createdAt}'
             )
             ->join('url.tags', 'tag');

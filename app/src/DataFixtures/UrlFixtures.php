@@ -37,6 +37,18 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
                 $this->faker->unique()->ean8()
             );
 
+            $url->setOriginalUrl(
+                $this->faker->url()
+            );
+
+            $url->setGuestEmail(
+                $this->faker->email()
+            );
+
+            $url->setClickCount(
+                $this->faker->numberBetween(0, 500)
+            );
+
             $url->setCreatedAt(
                 DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')

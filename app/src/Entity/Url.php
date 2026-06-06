@@ -22,7 +22,7 @@ class Url
     /**
      * shortCode.
      */
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20,  unique: true)]
     private ?string $shortCode = null;
 
     /**
@@ -42,6 +42,15 @@ class Url
      */
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     private Collection $tags;
+
+    #[ORM\Column(length: 2048)]
+    private ?string $originalUrl = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $guestEmail = null;
+
+    #[ORM\Column]
+    private int $clickCount = 0;
 
     public function __construct()
     {
@@ -143,6 +152,48 @@ class Url
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getOriginalUrl(): ?string
+    {
+        return $this->originalUrl;
+    }
+
+    public function setOriginalUrl(string $originalUrl): static
+    {
+        $this->originalUrl = $originalUrl;
+
+        return $this;
+    }
+
+    public function getGuestEmail(): ?string
+    {
+        return $this->guestEmail;
+    }
+
+    public function setGuestEmail(string $guestEmail): static
+    {
+        $this->guestEmail = $guestEmail;
+
+        return $this;
+    }
+
+    public function getClickCount(): int
+    {
+        return $this->clickCount;
+    }
+
+    public function setClickCount(int $clickCount): static
+    {
+        $this->clickCount = $clickCount;
+
+        return $this;
+    }
+    public function incrementClickCount(): static
+    {
+        ++$this->clickCount;
 
         return $this;
     }

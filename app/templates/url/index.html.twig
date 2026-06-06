@@ -19,6 +19,8 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'url.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'url.updatedAt') }}</th>
                 <th>{{ 'label.short_code'|trans }}</th>
+                <th>{{ 'label.guest_email'|trans }}</th>
+                <th>{{ 'label.click_count'|trans }}</th>
                 <th>{{ 'label.tags'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
@@ -30,6 +32,8 @@
                     <td>{{ url.createdAt|format_date('long') }}</td>
                     <td>{{ url.updatedAt|format_date('long') }}</td>
                     <td>{{ url.shortCode }}</td>
+                    <td>{{ url.guestEmail }}</td>
+                    <td>{{ url.clickCount }}</td>
                     <td>
                         {% for tag in url.tags %}
                             {{ tag.name }}{% if not loop.last %}, {% endif %}

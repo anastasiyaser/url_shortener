@@ -6,6 +6,7 @@
 
 namespace App\Service;
 
+use App\Entity\Url;
 use App\Repository\UrlRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -56,5 +57,17 @@ class UrlService implements UrlServiceInterface
             ]
         );
     }
+    /**
+     * Save entity.
+     *
+     * @param Url $url Url entity
+     */
+    public function save(Url $url): void
+    {
+        $url->setUpdatedAt(new \DateTimeImmutable());
+        if (null === $url->getId()) {
+            $url->setCreatedAt(new \DateTimeImmutable());
+        }
+        $this->urlRepository->save($url);
+    }
 }
-

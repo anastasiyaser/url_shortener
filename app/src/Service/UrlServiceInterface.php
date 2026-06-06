@@ -22,4 +22,10 @@ interface UrlServiceInterface
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
+    /**
+     * @param Url $url
+     * @return void
+     */
+    public function save(Url $url): void;
+
 }

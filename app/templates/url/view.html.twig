@@ -14,8 +14,12 @@
             <dd>{{ url.createdAt|date('Y/m/d') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>
             <dd>{{ url.updatedAt|date('Y/m/d') }}</dd>
+            <dt>{{ 'label.original_url'|trans }}</dt>
+            <dd>{{  url.originalUrl }}</dd>
             <dt>{{ 'label.short_code'|trans }}</dt>
             <dd>{{  url.shortCode }}</dd>
+            <dt>{{ 'label.guest_email'|trans }}</dt>
+            <dd>{{  url.guestEmail }}</dd>
             <dt>{{ 'label.tags'|trans }}</dt>
             <dd>
                 {% for tag in url.tags %}
