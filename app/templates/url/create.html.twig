@@ -9,7 +9,15 @@
         <h1>{{ 'title.url_create'|trans }}</h1>
 
         {{ form_start(form) }}
-        {# 1. Выводим поля по очереди, чтобы они не перемешивались с кнопками #}
+
+        {# DODAJEMY OBSŁUGĘ BŁĘDÓW ZGODNIE Z SZABLONEM PROFESORA #}
+        {% if false == form.vars.valid %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'danger',
+                message: 'message.form_error'|trans,
+            }%}
+        {% endif %}
+
         {% if form.shortCode is defined %}
             {{ form_row(form.shortCode) }}
         {% endif %}
@@ -23,7 +31,6 @@
             {{ form_widget(form.tags) }}
         </div>
 
-        {# 2. Строка с кнопками на базе Flexbox вместо проблемных float-классов #}
         <div class="d-flex justify-content-between align-items-center mt-4">
             <a href="{{ url('url_index') }}" class="btn btn-link">
                 {{ 'action.back_to_list'|trans }}

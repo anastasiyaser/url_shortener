@@ -9,7 +9,15 @@
         <h1>{{ 'title.url_edit'|trans }}</h1>
 
         {{ form_start(form) }}
-        {# 1. Выводим поля по очереди, чтобы они не перемешивались с кнопками #}
+
+        {# DODAJEMY OBSŁUGĘ BŁĘDÓW ZGODNIE Z SZABLONEM PROFESORA #}
+        {% if false == form.vars.valid %}
+            {% include 'default/_single_alert_message.html.twig' with {
+                type: 'danger',
+                message: 'message.form_error'|trans,
+            }%}
+        {% endif %}
+
         {{ form_row(form.originalUrl) }}
         {{ form_label(form.tags) }}
 
