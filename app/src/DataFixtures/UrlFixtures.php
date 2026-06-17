@@ -34,7 +34,7 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
             $url = new Url();
 
             $url->setShortCode(
-                $this->faker->unique()->ean8()
+                rtrim(strtr(base64_encode(random_bytes(4)), '+/', 'AZ'), '=')
             );
 
             $url->setOriginalUrl(

@@ -1,6 +1,8 @@
 <?php
 /**
  * Url service interface.
+ *
+ * (c) Your Name / University License
  */
 
 namespace App\Service;
@@ -18,14 +20,21 @@ interface UrlServiceInterface
      *
      * @param int $page Page number
      *
-     * @return PaginationInterface<string, mixed> Paginated list
+     * @return PaginationInterface Paginated list
      */
     public function getPaginatedList(int $page): PaginationInterface;
 
     /**
-     * @param Url $url
-     * @return void
+     * Save entity.
+     *
+     * @param Url $url Url entity
      */
     public function save(Url $url): void;
 
+    /**
+     * Delete entity.
+     *
+     * @param Url $url Url entity
+     */
+    public function delete(Url $url): void;
 }

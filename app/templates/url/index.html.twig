@@ -40,9 +40,17 @@
                         {% endfor %}
                     </td>
                     <td>
+                    <td>
                         <a href="{{ url('url_view', {id: url.id}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}
                         </a>
+                        <a href="{{ url('url_edit', {id: url.id}) }}" title="{{ 'action.edit'|trans }}">
+                            {{ 'action.edit'|trans }}
+                        </a>
+                        <a href="{{ url('url_delete', {id: url.id}) }}" title="{{ 'action.delete'|trans }}">
+                            {{ 'action.delete'|trans }}
+                        </a>
+                    </td>
                     </td>
                 </tr>
             {% endfor %}

@@ -19,17 +19,6 @@ use Doctrine\Persistence\ManagerRegistry;
 class UrlRepository extends ServiceEntityRepository
 {
     /**
-     * Items per page.
-     *
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them in configuration files.
-     * See https://symfony.com/doc/current/best_practices.html#configuration
-     *
-     * @var int
-     */
-    public const PAGINATOR_ITEMS_PER_PAGE = 10;
-
-    /**
      * Constructor.
      *
      * @param ManagerRegistry $registry Manager registry
@@ -51,6 +40,28 @@ class UrlRepository extends ServiceEntityRepository
                 'partial url.{id, createdAt, updatedAt, originalUrl, shortCode, guestEmail, clickCount }',
                 'partial tag.{id, name, createdAt}'
             )
-            ->join('url.tags', 'tag');
+            ->leftJoin('url.tags', 'tag');
+    }
+
+    /**
+     * Save entity.
+     *
+     * @param Url $url Url entity
+     */
+    public function save(Url $url): void
+    {
+        $this->getEntityManager()->persist($url);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Url $url Url entity
+     */
+    public function delete(Url $url): void
+    {
+        $this->getEntityManager()->remove($url);
+        $this->getEntityManager()->flush();
     }
 }

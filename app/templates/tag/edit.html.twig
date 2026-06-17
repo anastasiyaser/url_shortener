@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tag_edit'|trans({'%id%': tag.id|default('')}) }}</h1>
+<div class="container mt-4">
+    <h1>{{ 'title.tag_edit'|trans }}</h1>
+
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <div class="form-group row float-sm-right">
-        <input type="submit" value="{{ 'action.save'|trans }}" class="btn btn-primary"/>
-    </div>
-    <div class="form-group row float-sm-left">
+    {# 1. Выводим поля по очереди, чтобы они не перемешивались с кнопками #}
+    {{ form_row(form.name) }}
+    <div class="d-flex justify-content-between align-items-center mt-4">
         <a href="{{ url('tag_index') }}" class="btn btn-link">
             {{ 'action.back_to_list'|trans }}
         </a>
+        <button type="submit" class="btn btn-primary">
+            {{ 'action.save'|trans }}
+        </button>
     </div>
     {{ form_end(form) }}
+</div>
 {% endblock %}

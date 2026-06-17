@@ -1,7 +1,8 @@
 <?php
-
 /**
  * Url service.
+ *
+ * (c) Your Name / University License
  */
 
 namespace App\Service;
@@ -19,19 +20,15 @@ class UrlService implements UrlServiceInterface
     /**
      * Items per page.
      *
-     * Use constants to define configuration options that rarely change instead
-     * of specifying them in app/config/config.yml.
-     * See https://symfony.com/doc/current/best_practices.html#configuration
-     *
-     * @constant int
+     * @var int
      */
     private const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * Constructor.
      *
-     * @param UrlRepository     $urlRepository Url repository
-     * @param PaginatorInterface $paginator      Paginator
+     * @param UrlRepository      $urlRepository Url repository
+     * @param PaginatorInterface $paginator     Paginator
      */
     public function __construct(private readonly UrlRepository $urlRepository, private readonly PaginatorInterface $paginator)
     {
@@ -57,17 +54,62 @@ class UrlService implements UrlServiceInterface
             ]
         );
     }
+
     /**
      * Save entity.
      *
      * @param Url $url Url entity
+     *
+     * @throws \Exception If random generation fails
      */
     public function save(Url $url): void
     {
         $url->setUpdatedAt(new \DateTimeImmutable());
+
         if (null === $url->getId()) {
             $url->setCreatedAt(new \DateTimeImmutable());
+
+            if (null === $url->getShortCode()) {
+                $uniqueCode = $this->generateUniqueShortCode();
+                $url->setShortCode($uniqueCode);
+            }
         }
+
         $this->urlRepository->save($url);
+    }
+
+    /**
+     * Delete entity.
+     *
+     * @param Url $url Url entity
+     */
+    public function delete(Url $url): void
+    {
+        $this->urlRepository->delete($url);
+    }
+
+    /**
+     * Generates a unique shortcode.
+     *
+     * @return string Generated shortcode
+     *
+     * @throws \Exception If random generation fails
+     */
+    private function generateUniqueShortCode(): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $length = 6;
+
+        do {
+            $shortCode = '';
+            for ($i = 0; $i < $length; ++$i) {
+                $shortCode .= $characters[random_int(0, $charactersLength - 1)];
+            }
+
+            $existingUrl = $this->urlRepository->findOneBy(['shortCode' => $shortCode]);
+        } while (null !== $existingUrl);
+
+        return $shortCode;
     }
 }

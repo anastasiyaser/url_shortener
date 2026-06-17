@@ -1,4 +1,9 @@
 <?php
+/**
+ * Url Entity.
+ *
+ * (c) Your Name / University License
+ */
 
 namespace App\Entity;
 
@@ -7,6 +12,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Url.
+ */
 #[ORM\Entity(repositoryClass: UrlRepository::class)]
 #[ORM\Table(name: 'urls')]
 class Url
@@ -20,9 +28,9 @@ class Url
     private ?int $id = null;
 
     /**
-     * shortCode.
+     * Short code.
      */
-    #[ORM\Column(length: 20,  unique: true)]
+    #[ORM\Column(length: 20, unique: true)]
     private ?string $shortCode = null;
 
     /**
@@ -38,20 +46,34 @@ class Url
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
+     * Tags collection.
+     *
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class)]
     private Collection $tags;
 
+    /**
+     * Original URL.
+     */
     #[ORM\Column(length: 2048)]
     private ?string $originalUrl = null;
 
+    /**
+     * Guest email.
+     */
     #[ORM\Column(length: 255)]
     private ?string $guestEmail = null;
 
+    /**
+     * Click count.
+     */
     #[ORM\Column]
     private int $clickCount = 0;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -70,7 +92,7 @@ class Url
     /**
      * Getter for short code.
      *
-     * @param \string|null $shortCode Short Code
+     * @return string|null Short Code
      */
     public function getShortCode(): ?string
     {
@@ -80,7 +102,9 @@ class Url
     /**
      * Setter for short code.
      *
-     * @param \string|null $shortCode Short Code
+     * @param string $shortCode Short Code
+     *
+     * @return $this
      */
     public function setShortCode(string $shortCode): static
     {
@@ -98,10 +122,13 @@ class Url
     {
         return $this->createdAt;
     }
+
     /**
      * Setter for created at.
      *
-     * @param \DateTimeImmutable|null $createdAt Created at
+     * @param \DateTimeImmutable $createdAt Created at
+     *
+     * @return $this
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -123,7 +150,9 @@ class Url
     /**
      * Setter for updated at.
      *
-     * @param \DateTimeImmutable|null $updatedAt Updated at
+     * @param \DateTimeImmutable $updatedAt Updated at
+     *
+     * @return $this
      */
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
@@ -133,13 +162,22 @@ class Url
     }
 
     /**
-     * @return Collection<int, Tag>
+     * Getter for tags collection.
+     *
+     * @return Collection<int, Tag> Tags
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
+    /**
+     * Add tag to collection.
+     *
+     * @param Tag $tag Tag entity
+     *
+     * @return $this
+     */
     public function addTag(Tag $tag): static
     {
         if (!$this->tags->contains($tag)) {
@@ -149,6 +187,13 @@ class Url
         return $this;
     }
 
+    /**
+     * Remove tag from collection.
+     *
+     * @param Tag $tag Tag entity
+     *
+     * @return $this
+     */
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
@@ -156,11 +201,23 @@ class Url
         return $this;
     }
 
+    /**
+     * Getter for original URL.
+     *
+     * @return string|null Original URL
+     */
     public function getOriginalUrl(): ?string
     {
         return $this->originalUrl;
     }
 
+    /**
+     * Setter for original URL.
+     *
+     * @param string $originalUrl Original URL
+     *
+     * @return $this
+     */
     public function setOriginalUrl(string $originalUrl): static
     {
         $this->originalUrl = $originalUrl;
@@ -168,11 +225,23 @@ class Url
         return $this;
     }
 
+    /**
+     * Getter for guest email.
+     *
+     * @return string|null Guest email
+     */
     public function getGuestEmail(): ?string
     {
         return $this->guestEmail;
     }
 
+    /**
+     * Setter for guest email.
+     *
+     * @param string $guestEmail Guest email
+     *
+     * @return $this
+     */
     public function setGuestEmail(string $guestEmail): static
     {
         $this->guestEmail = $guestEmail;
@@ -180,21 +249,49 @@ class Url
         return $this;
     }
 
+    /**
+     * Getter for click count.
+     *
+     * @return int Click count
+     */
     public function getClickCount(): int
     {
         return $this->clickCount;
     }
 
+    /**
+     * Setter for click count.
+     *
+     * @param int $clickCount Click count
+     *
+     * @return $this
+     */
     public function setClickCount(int $clickCount): static
     {
         $this->clickCount = $clickCount;
 
         return $this;
     }
+
+    /**
+     * Increment click count.
+     *
+     * @return $this
+     */
     public function incrementClickCount(): static
     {
         ++$this->clickCount;
 
         return $this;
+    }
+
+    /**
+     * Transform object to string.
+     *
+     * @return string Original URL
+     */
+    public function __toString(): string
+    {
+        return (string) $this->getOriginalUrl();
     }
 }
