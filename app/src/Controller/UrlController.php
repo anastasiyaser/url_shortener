@@ -52,28 +52,6 @@ class UrlController extends AbstractController
 
         return $this->render('url/index.html.twig', ['pagination' => $pagination]);
     }
-
-    /**
-     * View action.
-     *
-     * @param Url $url Url entity
-     *
-     * @return Response HTTP response
-     */
-    #[Route(
-        '/{id}',
-        name: 'url_view',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: ['GET']
-    )]
-    public function view(Url $url): Response
-    {
-        return $this->render(
-            'url/view.html.twig',
-            ['url' => $url]
-        );
-    }
-
     /**
      * Create action.
      *
@@ -108,7 +86,26 @@ class UrlController extends AbstractController
             ['form' => $form->createView()]
         );
     }
-
+    /**
+     * View action.
+     *
+     * @param Url $url Url entity
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{shortCode}',
+        name: 'url_view',
+        requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
+        methods: ['GET']
+    )]
+    public function view(Url $url): Response
+    {
+        return $this->render(
+            'url/view.html.twig',
+            ['url' => $url]
+        );
+    }
     /**
      * Edit action.
      *
@@ -118,10 +115,10 @@ class UrlController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(
-        '/{id}/edit',
+        '/{shortCode}/edit',
         name: 'url_edit',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: ['GET', 'POST', 'PUT'] // <-- Добавлен POST
+        requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
+        methods: ['GET', 'POST', 'PUT']
     )]
     public function edit(Request $request, Url $url): Response
     {
@@ -130,7 +127,7 @@ class UrlController extends AbstractController
             $url,
             [
                 'method' => 'PUT',
-                'action' => $this->generateUrl('url_edit', ['id' => $url->getId()]),
+                'action' => $this->generateUrl('url_edit', ['shortCode' => $url->getShortCode()]),
             ]
         );
         $form->handleRequest($request);
@@ -150,7 +147,7 @@ class UrlController extends AbstractController
             'url/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'url' => $url, // <-- Исправлено с 'category' на 'url'
+                'url' => $url,
             ]
         );
     }
@@ -164,16 +161,16 @@ class UrlController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(
-        '/{id}/delete',
+        '/{shortCode}/delete',
         name: 'url_delete',
-        requirements: ['id' => '[1-9]\d*'],
-        methods: ['GET', 'POST', 'DELETE'] // <-- Добавлен POST
+        requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
+        methods: ['GET', 'POST', 'DELETE']
     )]
     public function delete(Request $request, Url $url): Response
     {
         $form = $this->createForm(FormType::class, $url, [
             'method' => 'DELETE',
-            'action' => $this->generateUrl('url_delete', ['id' => $url->getId()]),
+            'action' => $this->generateUrl('url_delete', ['shortCode' => $url->getShortCode()]),
         ]);
         $form->handleRequest($request);
 

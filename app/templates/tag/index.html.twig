@@ -28,13 +28,13 @@
                     <td>{{ tag.createdAt|format_date('long') }}</td>
                     <td>{{ tag.name }}</td>
                     <td>
-                        <a href="{{ url('tag_view', {id: tag.id}) }}" title="{{ 'action.view'|trans }}">
+                        <a href="{{ url('tag_view', {slug: tag.slug}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}
                         </a>
-                        <a href="{{ url('tag_edit', {id: tag.id}) }}" title="{{ 'action.edit'|trans }}">
+                        <a href="{{ url('tag_edit', {slug: tag.slug}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
                         </a>
-                        <a href="{{ url('tag_delete', {id: tag.id}) }}" title="{{ 'action.delete'|trans }}">
+                        <a href="{{ url('tag_delete', {slug: tag.slug}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>

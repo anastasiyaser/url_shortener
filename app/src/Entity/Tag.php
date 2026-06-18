@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Class Tag.
  */
@@ -28,8 +29,22 @@ class Tag
     /**
      * Created at.
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Gedmo\Timestampable(on: 'create')] // Automatycznie przy tworzeniu
     private ?\DateTimeImmutable $createdAt = null;
+    /**
+     * Updated at.
+     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)] // Bezpieczne nullable dla starych danych
+    #[Gedmo\Timestampable(on: 'update')] // Automatycznie przy każdej edycji
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    /**
+     * Slug.
+     */
+    #[ORM\Column(type: 'string', length: 20, unique: true)]
+    #[Gedmo\Slug(fields: ['name'])]
+    private ?string $slug = null;
     /**
      * Getter for Id.
      *
@@ -76,6 +91,38 @@ class Tag
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+    /**
+     * Getter for updated at.
+     *
+     * @return \DateTimeImmutable|null Updated at
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+    /**
+     * Setter for updated at.
+     *
+     * @param \DateTimeImmutable|null $updatedAt Updated at
+     */
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

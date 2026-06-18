@@ -64,10 +64,7 @@ class UrlService implements UrlServiceInterface
      */
     public function save(Url $url): void
     {
-        $url->setUpdatedAt(new \DateTimeImmutable());
-
         if (null === $url->getId()) {
-            $url->setCreatedAt(new \DateTimeImmutable());
 
             if (null === $url->getShortCode()) {
                 $uniqueCode = $this->generateUniqueShortCode();

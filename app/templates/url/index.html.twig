@@ -41,13 +41,13 @@
                     </td>
                     <td>
                     <td>
-                        <a href="{{ url('url_view', {id: url.id}) }}" title="{{ 'action.view'|trans }}">
+                        <a href="{{ url('url_view', {shortCode: url.shortCode}) }}" title="{{ 'action.view'|trans }}">
                             {{ 'action.view'|trans }}
                         </a>
-                        <a href="{{ url('url_edit', {id: url.id}) }}" title="{{ 'action.edit'|trans }}">
+                        <a href="{{ url('url_edit', {shortCode: url.shortCode}) }}" title="{{ 'action.edit'|trans }}">
                             {{ 'action.edit'|trans }}
                         </a>
-                        <a href="{{ url('url_delete', {id: url.id}) }}" title="{{ 'action.delete'|trans }}">
+                        <a href="{{ url('url_delete', {shortCode: url.shortCode}) }}" title="{{ 'action.delete'|trans }}">
                             {{ 'action.delete'|trans }}
                         </a>
                     </td>
