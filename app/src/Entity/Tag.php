@@ -12,6 +12,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\Table(name: 'tags')]
+#[ORM\UniqueConstraint(name: 'uq_tags_name', columns: ['name'])]
+#[UniqueEntity(fields: ['name'])]
 class Tag
 {
     /**
@@ -25,24 +27,31 @@ class Tag
      * Name.
      */
     #[ORM\Column(length: 20)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 20)]
     private ?string $name = null;
     /**
      * Created at.
      */
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Gedmo\Timestampable(on: 'create')] // Automatycznie przy tworzeniu
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
     /**
      * Updated at.
      */
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)] // Bezpieczne nullable dla starych danych
-    #[Gedmo\Timestampable(on: 'update')] // Automatycznie przy każdej edycji
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * Slug.
      */
     #[ORM\Column(type: 'string', length: 20, unique: true)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 20)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
     /**
@@ -66,7 +75,7 @@ class Tag
     /**
      * Setter for name.
      *
-     * @param string|null $name Name
+     * @param string $name Name
      */
     public function setName(string $name): static
     {
@@ -114,12 +123,20 @@ class Tag
 
         return $this;
     }
-
+    /**
+     * Getter for slug.
+     *
+     * @return string|null Slug
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
-
+    /**
+     * Setter for slug.
+     *
+     * @param string $slug Slug
+     */
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;

@@ -35,8 +35,13 @@
                     <td>{{ url.guestEmail }}</td>
                     <td>{{ url.clickCount }}</td>
                     <td>
+                        {% set colors = ['primary-subtle', 'success-subtle', 'danger-subtle', 'warning-subtle', 'info-subtle', 'secondary-subtle'] %}
                         {% for tag in url.tags %}
-                            {{ tag.name }}{% if not loop.last %}, {% endif %}
+                            {% set color_class = colors[loop.index0 % colors|length] %}
+
+                            <span class="badge bg-{{ color_class }} text-dark border border-{{ color_class|replace({'-subtle': ''}) }} text-decoration-none me-1 mb-1">
+                                {{ tag.name }}
+                            </span>
                         {% endfor %}
                     </td>
                     <td>

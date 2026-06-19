@@ -28,7 +28,7 @@ class TagFixtures extends AbstractBaseFixtures
         }
         $this->createMany(20, 'tag', function (int $i){
             $tag = new Tag();
-            $tag->setName($this->faker->word());
+            $tag->setName($this->faker->unique()->word);
             $tag->setCreatedAt(
                 \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );

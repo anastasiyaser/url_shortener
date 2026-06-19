@@ -12,12 +12,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Url.
  */
 #[ORM\Entity(repositoryClass: UrlRepository::class)]
 #[ORM\Table(name: 'urls')]
+#[ORM\UniqueConstraint(name: 'uq_urls_short_code', columns: ['short_code'])]
+#[UniqueEntity(fields: ['shortCode'])]
 class Url
 {
     /**
@@ -25,13 +29,15 @@ class Url
      */
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     /**
      * Short code.
      */
     #[ORM\Column(length: 20, unique: true)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 20)]
     private ?string $shortCode = null;
 
     /**
@@ -40,6 +46,7 @@ class Url
      * @var DateTimeImmutable|null
      */
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -49,6 +56,7 @@ class Url
      * @var DateTimeImmutable|null
      */
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'update')]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -64,18 +72,28 @@ class Url
      * Original URL.
      */
     #[ORM\Column(length: 2048)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Url]
+    #[Assert\Length(max: 2048)]
     private ?string $originalUrl = null;
 
     /**
      * Guest email.
      */
     #[ORM\Column(length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Assert\Length(max: 255)]
     private ?string $guestEmail = null;
 
     /**
      * Click count.
      */
     #[ORM\Column]
+    #[Assert\Type('integer')]
+    #[Assert\PositiveOrZero]
     private int $clickCount = 0;
 
     /**
