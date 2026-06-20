@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>{{ 'title.url_create'|trans }}</h1>
+        <h1 class="mb-4">{{ 'title.url_create'|trans }}</h1>
 
         {{ form_start(form) }}
 
@@ -18,27 +18,49 @@
             }%}
         {% endif %}
 
-        {% if form.shortCode is defined %}
-            {{ form_row(form.shortCode) }}
-        {% endif %}
+            {% if form.shortCode is defined %}
+                <div class="mb-3">
+                    {{ form_row(form.shortCode) }}
+                </div>
+            {% endif %}
 
-        {{ form_row(form.originalUrl) }}
-        {{ form_row(form.guestEmail) }}
+            <div class="mb-3">
+                {{ form_row(form.originalUrl) }}
+            </div>
 
-        {{ form_label(form.tags) }}
+            {# --- WARUNKOWE WYŚWIETLANIE EMAILA GOŚCIA --- #}
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="mb-3">
+                    <p class="text-muted small mb-2">
+                        <i class="bi bi-info-circle me-1"></i> Wprowadź swój email, abyśmy mogli przypisać ten link do Ciebie.
+                    </p>
+                    {{ form_row(form.guestEmail, {'attr': {'required': 'required', 'class': 'form-control rounded-0'}}) }}
+                </div>
+            {% else %}
+                {# Ukrywamy pole dla zalogowanych (d-none), żeby Symfony nie wyrenderowało go automatycznie na końcu formularza #}
+                <div class="d-none">
+                    {{ form_row(form.guestEmail) }}
+                </div>
+            {% endif %}
 
-        <div class="border rounded p-3" style="max-height: 150px; overflow-y: auto; background-color: #f8f9fa;">
-            {{ form_widget(form.tags) }}
-        </div>
+            {# --- BLOK TAGÓW (ZACHOWANY TWOJEGO POMYSŁU) --- #}
+            <div class="mb-3">
+                {{ form_label(form.tags, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                <div class="border rounded-0 p-3" style="max-height: 150px; overflow-y: auto; background-color: #f8f9fa;">
+                    {{ form_widget(form.tags) }}
+                </div>
+            </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-4">
-            <a href="{{ url('url_index') }}" class="btn btn-link">
-                {{ 'action.back_to_list'|trans }}
-            </a>
-            <button type="submit" class="btn btn-primary">
-                {{ 'action.save'|trans }}
-            </button>
-        </div>
+            {# --- PRZYCISKI AKCJI --- #}
+            <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                <a href="{{ url('url_index') }}" class="btn btn-outline-secondary rounded-0 px-4">
+                    <i class="bi bi-arrow-left me-1"></i> {{ 'action.back_to_list'|trans }}
+                </a>
+                <button type="submit" class="btn btn-primary rounded-0 px-4">
+                    <i class="bi bi-save me-1"></i> {{ 'action.save'|trans }}
+                </button>
+            </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}

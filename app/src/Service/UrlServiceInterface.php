@@ -8,6 +8,7 @@
 namespace App\Service;
 
 use App\Entity\Url;
+use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
@@ -18,11 +19,12 @@ interface UrlServiceInterface
     /**
      * Get paginated list.
      *
-     * @param int $page Page number
+     * @param int       $page Page number
+     * @param User|null $user Current user
      *
      * @return PaginationInterface Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    public function getPaginatedList(int $page, ?User $user = null): PaginationInterface;
 
     /**
      * Save entity.

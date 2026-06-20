@@ -46,15 +46,21 @@
                     </td>
                     <td>
                     <td>
-                        <a href="{{ url('url_view', {shortCode: url.shortCode}) }}" title="{{ 'action.view'|trans }}">
-                            {{ 'action.view'|trans }}
-                        </a>
-                        <a href="{{ url('url_edit', {shortCode: url.shortCode}) }}" title="{{ 'action.edit'|trans }}">
-                            {{ 'action.edit'|trans }}
-                        </a>
-                        <a href="{{ url('url_delete', {shortCode: url.shortCode}) }}" title="{{ 'action.delete'|trans }}">
-                            {{ 'action.delete'|trans }}
-                        </a>
+                        {% if is_granted('URL_VIEW', url) %}
+                            <a class="btn btn-sm btn-outline-primary" href="{{ url('url_view', {shortCode: url.shortCode}) }}" title="{{ 'action.view'|trans }}">
+                                {{ 'action.view'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('URL_EDIT', url) %}
+                            <a class="btn btn-sm btn-outline-primary" href="{{ url('url_edit', {shortCode: url.shortCode}) }}" title="{{ 'action.edit'|trans }}">
+                                {{ 'action.edit'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('URL_DELETE', url) %}
+                            <a class="btn btn-sm btn-outline-primary" href="{{ url('url_delete', {shortCode: url.shortCode}) }}" title="{{ 'action.delete'|trans }}">
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
                     </td>
                     </td>
                 </tr>

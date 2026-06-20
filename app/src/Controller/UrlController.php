@@ -8,8 +8,10 @@
 namespace App\Controller;
 
 use App\Entity\Url;
+use App\Entity\User;
 use App\Form\Type\UrlEditType;
 use App\Form\Type\UrlType;
+use App\Security\Voter\UrlVoter; // 🚀 IMPORT TWOJEGO VOTERA
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -17,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted; // 🚀 IMPORT ATRYBUTU BEZPIECZEŃSTWA
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -48,10 +51,13 @@ class UrlController extends AbstractController
     )]
     public function index(#[MapQueryParameter] int $page = 1): Response
     {
-        $pagination = $this->urlService->getPaginatedList($page);
+        $pagination = $this->urlService->getPaginatedList($page, $this->getUser());
 
-        return $this->render('url/index.html.twig', ['pagination' => $pagination]);
+        return $this->render('url/index.html.twig', [
+            'pagination' => $pagination
+        ]);
     }
+
     /**
      * Create action.
      *
@@ -67,6 +73,10 @@ class UrlController extends AbstractController
     public function create(Request $request): Response
     {
         $url = new Url();
+        if ($this->getUser()) {
+            $url->setUser($this->getUser());
+            $url->setGuestEmail($this->getUser()->getEmail());
+        }
         $form = $this->createForm(UrlType::class, $url);
         $form->handleRequest($request);
 
@@ -86,6 +96,7 @@ class UrlController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
     /**
      * View action.
      *
@@ -99,6 +110,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET']
     )]
+    #[IsGranted(UrlVoter::VIEW, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
     public function view(Url $url): Response
     {
         return $this->render(
@@ -106,6 +118,7 @@ class UrlController extends AbstractController
             ['url' => $url]
         );
     }
+
     /**
      * Edit action.
      *
@@ -120,6 +133,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET', 'POST', 'PUT']
     )]
+    #[IsGranted(UrlVoter::EDIT, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
     public function edit(Request $request, Url $url): Response
     {
         $form = $this->createForm(
@@ -166,6 +180,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET', 'POST', 'DELETE']
     )]
+    #[IsGranted(UrlVoter::DELETE, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
     public function delete(Request $request, Url $url): Response
     {
         $form = $this->createForm(FormType::class, $url, [

@@ -8,6 +8,7 @@
 namespace App\Service;
 
 use App\Entity\Url;
+use App\Entity\User;
 use App\Repository\UrlRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -41,15 +42,15 @@ class UrlService implements UrlServiceInterface
      *
      * @return PaginationInterface Paginated list
      */
-    public function getPaginatedList(int $page): PaginationInterface
+    public function getPaginatedList(int $page, ?User $user = null): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->urlRepository->queryAll(),
+            $this->urlRepository->queryAll($user),
             $page,
             self::PAGINATOR_ITEMS_PER_PAGE,
             [
-                'sortFieldAllowList' => ['url.id', 'url.createdAt', 'url.updatedAt'],
-                'defaultSortFieldName' => 'url.updatedAt',
+                'sortFieldAllowList' => ['url.id', 'url.createdAt', 'url.updatedAt', 'url.clickCount'],
+                'defaultSortFieldName' => 'url.createdAt',
                 'defaultSortDirection' => 'desc',
             ]
         );

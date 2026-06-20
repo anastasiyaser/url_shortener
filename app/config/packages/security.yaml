@@ -38,10 +38,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # 1. Разрешаем всем доступ к странице логина
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: ROLE_USER }
+
+        # 2. 🚀 РАЗРЕШАЕМ ПУБЛИЧНЫЙ ДОСТУП К КОНТРОЛЛЕРУ ССЫЛОК
+        # Это позволит гостям видеть список и создавать ссылки,
+        # а контроллер сам решит, кого не пускать в edit/delete.
+        - { path: ^/url, roles: PUBLIC_ACCESS }
+
+        # 3. Разрешаем публичный доступ ко всему остальному (включая редиректы коротких ссылок)
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
 when@test:
     security:

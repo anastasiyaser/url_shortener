@@ -81,9 +81,9 @@ class Url
     /**
      * Guest email.
      */
-    #[ORM\Column(length: 255)]
-    #[Assert\Type('string')]
+    #[ORM\Column(length: 255, nullable: false)]
     #[Assert\NotBlank]
+    #[Assert\Type('string')]
     #[Assert\Email]
     #[Assert\Length(max: 255)]
     private ?string $guestEmail = null;
@@ -95,6 +95,11 @@ class Url
     #[Assert\Type('integer')]
     #[Assert\PositiveOrZero]
     private int $clickCount = 0;
+
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EXTRA_LAZY')]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Assert\Type(User::class)]
+    private ?User $user = null;
 
     /**
      * Constructor.
@@ -267,7 +272,7 @@ class Url
      *
      * @return $this
      */
-    public function setGuestEmail(string $guestEmail): static
+    public function setGuestEmail(?string $guestEmail): static
     {
         $this->guestEmail = $guestEmail;
 
@@ -318,5 +323,17 @@ class Url
     public function __toString(): string
     {
         return (string) $this->getOriginalUrl();
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
