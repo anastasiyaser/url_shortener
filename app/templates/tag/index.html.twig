@@ -5,7 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tag_list'|trans }}</h1>
+<div class="d-flex align-items-center gap-3 mb-4">
+    <h1 class="m-0">{{ 'title.tag_list'|trans }}</h1>
+    <a href="{{ url('tag_create') }}" class="btn btn-success btn-sm">
+        <i class="bi bi-plus-circle"></i> {{ 'action.create_tag'|trans }}
+    </a>
+</div>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">

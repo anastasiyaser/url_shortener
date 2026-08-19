@@ -7,10 +7,13 @@
 
 namespace App\Controller;
 
+use App\Dto\UrlListInputFiltersDto;
+use App\Entity\Tag;
 use App\Entity\Url;
 use App\Entity\User;
 use App\Form\Type\UrlEditType;
 use App\Form\Type\UrlType;
+use App\Resolver\UrlListInputFiltersDtoResolver;
 use App\Security\Voter\UrlVoter; // 🚀 IMPORT TWOJEGO VOTERA
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted; // 🚀 IMPORT ATRYBUTU BEZPIECZEŃSTWA
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -49,9 +53,15 @@ class UrlController extends AbstractController
         name: 'url_index',
         methods: ['GET']
     )]
-    public function index(#[MapQueryParameter] int $page = 1): Response
-    {
-        $pagination = $this->urlService->getPaginatedList($page, $this->getUser());
+    public function index(
+        #[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] ?UrlListInputFiltersDto $filters = null,
+        #[MapQueryParameter] int $page = 1
+    ): Response {
+        // Если фильтры не пришли (например, просто зашли на главную), создаем пустой объект
+        $filters ??= new UrlListInputFiltersDto();
+
+        // Передаем фильтры третьим аргументом в сервис
+        $pagination = $this->urlService->getPaginatedList($page, $this->getUser(), $filters);
 
         return $this->render('url/index.html.twig', [
             'pagination' => $pagination

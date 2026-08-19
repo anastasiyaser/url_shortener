@@ -7,6 +7,7 @@
 
 namespace App\Service;
 
+use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -24,7 +25,7 @@ interface UrlServiceInterface
      *
      * @return PaginationInterface Paginated list
      */
-    public function getPaginatedList(int $page, ?User $user = null): PaginationInterface;
+    public function getPaginatedList(int $page, ?User $user, UrlListInputFiltersDto $filters): PaginationInterface;
 
     /**
      * Save entity.

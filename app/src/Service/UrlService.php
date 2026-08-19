@@ -7,6 +7,7 @@
 
 namespace App\Service;
 
+use App\Dto\UrlListInputFiltersDto;
 use App\Entity\Url;
 use App\Entity\User;
 use App\Repository\UrlRepository;
@@ -36,16 +37,19 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
-     * Get paginated list.
+     * Get paginated list of URLs.
      *
-     * @param int $page Page number
+     * @param int                    $page    Page number
+     * @param User|null              $user    Current user
+     * @param UrlListInputFiltersDto $filters Filters DTO
      *
      * @return PaginationInterface Paginated list
      */
-    public function getPaginatedList(int $page, ?User $user = null): PaginationInterface
+    public function getPaginatedList(int $page, ?User $user, UrlListInputFiltersDto $filters): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->urlRepository->queryAll($user),
+        // 🚀 Передаем фильтры первым аргументом, а юзера — вторым (как настроили в репозитории)
+            $this->urlRepository->queryAll($filters, $user),
             $page,
             self::PAGINATOR_ITEMS_PER_PAGE,
             [
@@ -110,4 +114,5 @@ class UrlService implements UrlServiceInterface
 
         return $shortCode;
     }
+
 }
