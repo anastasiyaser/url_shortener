@@ -34,6 +34,9 @@
                 <button class="btn btn-primary rounded-0 w-100 mt-2" type="submit">
                     {{ 'action.login'|trans }}
                 </button>
+                <a href="{{ path('app_register') }}" class="btn btn-outline-primary rounded-0 w-100 mt-2">
+                    <i class="bi bi-person-plus me-1"></i>{{ 'action.register'|trans }}
+                </a>
                 <a href="{{ path('url_index') }}" class="btn btn-outline-secondary rounded-0 w-100 mt-2" title="{{ 'action.back_to_list'|trans }}">
                     {{ 'action.back_to_list'|trans }}
                 </a>

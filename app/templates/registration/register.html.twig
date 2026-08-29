@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.register'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+            <h1 class="h3 mb-4 fw-normal">{{ 'title.register'|trans }}</h1>
+
+            {% if form_errors(registrationForm) %}
+                <div class="alert alert-danger rounded-0 mb-3">
+                    {{ form_errors(registrationForm) }}
+                </div>
+            {% endif %}
+
+            {{ form_start(registrationForm) }}
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email, 'label.email'|trans, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control rounded-0', 'autofocus': 'autofocus'}}) }}
+                <div class="text-danger small mt-1">
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword, 'label.password'|trans, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control rounded-0'}}) }}
+                <div class="text-danger small mt-1">
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+            </div>
+
+            {% if registrationForm.agreeTerms is defined %}
+                <div class="mb-3 form-check">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                    <div class="text-danger small mt-1">
+                        {{ form_errors(registrationForm.agreeTerms) }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary rounded-0 w-100 mt-2">
+                <i class="bi bi-person-plus me-1"></i>{{ 'action.register'|trans }}
+            </button>
+
+            <a href="{{ path('app_login') }}" class="btn btn-outline-primary rounded-0 w-100 mt-2">
+                {{ 'action.login'|trans }}
+            </a>
+
+            <a href="{{ path('url_index') }}" class="btn btn-outline-secondary rounded-0 w-100 mt-2" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'action.back_to_list'|trans }}
+            </a>
+
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}
