@@ -30,6 +30,15 @@ interface UrlServiceInterface
     public function getPaginatedList(int $page, ?User $user, UrlListInputFiltersDto $filters): PaginationInterface;
 
     /**
+     * Get URL for redirect and increment click count.
+     *
+     * @param string $shortCode Short code
+     *
+     * @return Url|null Url entity or null if not found
+     */
+    public function getUrlForRedirect(string $shortCode): ?Url;
+
+    /**
      * Save entity.
      *
      * @param Url $url Url entity

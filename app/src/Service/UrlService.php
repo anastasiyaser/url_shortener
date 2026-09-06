@@ -61,6 +61,27 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
+     * Get URL for redirect and increment click count.
+     *
+     * @param string $shortCode Short code
+     *
+     * @return Url|null Url entity or null if not found
+     */
+    public function getUrlForRedirect(string $shortCode): ?Url
+    {
+        $url = $this->urlRepository->findOneBy(['shortCode' => $shortCode]);
+
+        if (null === $url) {
+            return null;
+        }
+
+        $url->incrementClickCount();
+        $this->urlRepository->save($url);
+
+        return $url;
+    }
+
+    /**
      * Save entity.
      *
      * @param Url $url Url entity

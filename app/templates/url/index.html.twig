@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-    {# 🚀 Изменили классы: теперь заголовок и кнопки стоят рядышком на одной линии #}
     <div class="d-flex align-items-center gap-3 mb-4">
         <h1 class="m-0">{{ 'title.url_list'|trans }}</h1>
 
@@ -36,7 +35,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'url.updatedAt') }}</th>
                 <th>{{ 'label.short_code'|trans }}</th>
                 <th>{{ 'label.guest_email'|trans }}</th>
-                <th>{{ 'label.click_count'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.click_count'|trans, 'url.clickCount') }}</th>
                 <th>{{ 'label.tags'|trans }}</th>
                 <th class="text-end">{{ 'label.actions'|trans }}</th>
             </tr>
@@ -47,7 +46,11 @@
                     <td>{{ url.id }}</td>
                     <td>{{ url.createdAt|format_date('long') }}</td>
                     <td>{{ url.updatedAt|format_date('long') }}</td>
-                    <td><code>{{ url.shortCode }}</code></td>
+                    <td>
+                        <a href="{{ url('url_redirect', {'shortCode': url.shortCode}) }}" target="_blank">
+                            <code>{{ url.shortCode }}</code>
+                        </a>
+                    </td>
                     <td>{{ url.guestEmail }}</td>
                     <td><span class="badge bg-secondary">{{ url.clickCount }}</span></td>
                     <td>
@@ -61,7 +64,6 @@
                             </a>
                         {% endfor %}
                     </td>
-                    {# 🚀 ИСПРАВЛЕНО: Убрали дубликат <td> и выровняли кнопки по правому краю (text-end) для красоты #}
                     <td class="text-end">
                         <div class="btn-group" role="group">
                             {% if is_granted('URL_VIEW', url) %}
