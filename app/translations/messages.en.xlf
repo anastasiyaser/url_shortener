@@ -6,6 +6,10 @@
         <source>action.back_to_list</source>
         <target>Back to list</target>
       </trans-unit>
+      <trans-unit id="action.clear_filter">
+        <source>action.clear_filter</source>
+        <target>clear filter</target>
+      </trans-unit>
       <trans-unit id="action.create_tag">
         <source>action.create_tag</source>
         <target>create</target>
@@ -34,9 +38,17 @@
         <source>action.register</source>
         <target>Register</target>
       </trans-unit>
+      <trans-unit id="action.save">
+        <source>action.save</source>
+        <target>save</target>
+      </trans-unit>
       <trans-unit id="action.view">
         <source>action.view</source>
         <target>View</target>
+      </trans-unit>
+      <trans-unit id="flash.password_changed">
+        <source>flash.password_changed</source>
+        <target>password changed!</target>
       </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
@@ -70,6 +82,14 @@
         <source>label.name</source>
         <target>Name</target>
       </trans-unit>
+      <trans-unit id="label.new_password">
+        <source>label.new_password</source>
+        <target>new password</target>
+      </trans-unit>
+      <trans-unit id="label.old_password">
+        <source>label.old_password</source>
+        <target>old password</target>
+      </trans-unit>
       <trans-unit id="label.original_url">
         <source>label.original_url</source>
         <target>Original url</target>
@@ -77,6 +97,10 @@
       <trans-unit id="label.password">
         <source>label.password</source>
         <target>Password</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>repeat new password</target>
       </trans-unit>
       <trans-unit id="label.short_code">
         <source>label.short_code</source>
@@ -94,9 +118,29 @@
         <source>label.updated_at</source>
         <target>Updated at</target>
       </trans-unit>
+      <trans-unit id="logged_in_as">
+        <source>logged_in_as</source>
+        <target>i am...</target>
+      </trans-unit>
+      <trans-unit id="message.created_successfully">
+        <source>message.created_successfully</source>
+        <target>created successfully!</target>
+      </trans-unit>
+      <trans-unit id="message.deleted_successfully">
+        <source>message.deleted_successfully</source>
+        <target>deleted successfully</target>
+      </trans-unit>
+      <trans-unit id="message.edited_successfully">
+        <source>message.edited_successfully</source>
+        <target>edited successfully!</target>
+      </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
         <target>List is empty.</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>error!</target>
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
@@ -114,73 +158,53 @@
         <source>title.login_form</source>
         <target>Login form</target>
       </trans-unit>
+      <trans-unit id="title.register">
+        <source>title.register</source>
+        <target>Register</target>
+      </trans-unit>
+      <trans-unit id="title.tag_create">
+        <source>title.tag_create</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="title.tag_delete">
+        <source>title.tag_delete</source>
+        <target>Delete</target>
+      </trans-unit>
       <trans-unit id="title.tag_details">
         <source>title.tag_details</source>
         <target>Tag details #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.tag_edit">
+        <source>title.tag_edit</source>
+        <target>Edit</target>
       </trans-unit>
       <trans-unit id="title.tag_list">
         <source>title.tag_list</source>
         <target>Tags list</target>
       </trans-unit>
-      <trans-unit id="title.url_details">
-        <source>title.url_details</source>
-        <target>Url details #%id%</target>
-      </trans-unit>
-      <trans-unit id="title.url_list">
-        <source>title.url_list</source>
-        <target>Urls list</target>
-      </trans-unit>
-      <trans-unit id="title.url_edit">
-        <source>title.url_edit</source>
-        <target>Edit</target>
+      <trans-unit id="title.url_create">
+        <source>title.url_create</source>
+        <target>Create one</target>
       </trans-unit>
       <trans-unit id="title.url_delete">
         <source>title.url_delete</source>
         <target>Delete</target>
       </trans-unit>
+      <trans-unit id="title.url_details">
+        <source>title.url_details</source>
+        <target>Url details #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.url_edit">
+        <source>title.url_edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="title.url_list">
+        <source>title.url_list</source>
+        <target>Urls list</target>
+      </trans-unit>
       <trans-unit id="title.url_view">
         <source>title.url_view</source>
         <target>Url view #%id%</target>
-      </trans-unit>
-      <trans-unit id="title.url_create">
-        <source>title.url_create</source>
-        <target>Create one</target>
-      </trans-unit>
-      <trans-unit id="flash.password_changed">
-        <source>flash.password_changed</source>
-        <target>password changed!</target>
-      </trans-unit>
-      <trans-unit id="message.form_error">
-        <source>message.form_error</source>
-        <target>error!</target>
-      </trans-unit>
-      <trans-unit id="message.created_successfully">
-        <source>message.created_successfully</source>
-        <target>created successfully!</target>
-      </trans-unit>
-      <trans-unit id="message.edited_successfully">
-        <source>message.edited_successfully</source>
-        <target>edited successfully!</target>
-      </trans-unit>
-      <trans-unit id="action.clear_filter">
-        <source>action.clear_filter</source>
-        <target>clear filter</target>
-      </trans-unit>
-      <trans-unit id="label.old_password">
-        <source>label.old_password</source>
-        <target>old password</target>
-      </trans-unit>
-      <trans-unit id="label.new_password">
-        <source>label.new_password</source>
-        <target>new password</target>
-      </trans-unit>
-      <trans-unit id="label.repeat_password">
-        <source>label.repeat_password</source>
-        <target>repeat new password</target>
-      </trans-unit>
-      <trans-unit id="action.save">
-        <source>action.save</source>
-        <target>save</target>
       </trans-unit>
     </body>
   </file>

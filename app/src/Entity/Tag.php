@@ -1,14 +1,24 @@
 <?php
-/**
- * Tag entity.
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
- * Class Tag.
+ * Tag entity.
  */
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\Table(name: 'tags')]
@@ -23,6 +33,7 @@ class Tag
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
     /**
      * Name.
      */
@@ -31,6 +42,7 @@ class Tag
     #[Assert\NotBlank]
     #[Assert\Length(min: 3, max: 20)]
     private ?string $name = null;
+
     /**
      * Created at.
      */
@@ -38,6 +50,7 @@ class Tag
     #[Assert\Type(\DateTimeImmutable::class)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
+
     /**
      * Updated at.
      */
@@ -54,6 +67,7 @@ class Tag
     #[Assert\Length(min: 3, max: 20)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
+
     /**
      * Getter for Id.
      *
@@ -63,6 +77,7 @@ class Tag
     {
         return $this->id;
     }
+
     /**
      * Getter for name.
      *
@@ -72,10 +87,13 @@ class Tag
     {
         return $this->name;
     }
+
     /**
      * Setter for name.
      *
      * @param string $name Name
+     *
+     * @return $this
      */
     public function setName(string $name): static
     {
@@ -83,6 +101,7 @@ class Tag
 
         return $this;
     }
+
     /**
      * Getter for created at.
      *
@@ -92,17 +111,21 @@ class Tag
     {
         return $this->createdAt;
     }
+
     /**
      * Setter for created at.
      *
      * @param \DateTimeImmutable|null $createdAt Created at
+     *
+     * @return $this
      */
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
+
     /**
      * Getter for updated at.
      *
@@ -112,10 +135,13 @@ class Tag
     {
         return $this->updatedAt;
     }
+
     /**
      * Setter for updated at.
      *
      * @param \DateTimeImmutable|null $updatedAt Updated at
+     *
+     * @return $this
      */
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
@@ -123,6 +149,7 @@ class Tag
 
         return $this;
     }
+
     /**
      * Getter for slug.
      *
@@ -132,12 +159,15 @@ class Tag
     {
         return $this->slug;
     }
+
     /**
      * Setter for slug.
      *
-     * @param string $slug Slug
+     * @param string|null $slug Slug
+     *
+     * @return $this
      */
-    public function setSlug(string $slug): static
+    public function setSlug(?string $slug): static
     {
         $this->slug = $slug;
 

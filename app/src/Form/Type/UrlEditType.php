@@ -1,4 +1,5 @@
 <?php
+
 /**
  * UrlEdit type.
  */

@@ -9,7 +9,6 @@ namespace App\DataFixtures;
 use App\Entity\Tag;
 use App\Entity\Url;
 use App\Entity\User; // 1. Добавили импорт сущности User
-use DateTimeImmutable;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
@@ -24,8 +23,7 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
      */
     public function loadData(): void
     {
-        if (
-            !$this->manager instanceof ObjectManager
+        if (!$this->manager instanceof ObjectManager
             || !$this->faker instanceof Generator
         ) {
             return;
@@ -48,19 +46,19 @@ class UrlFixtures extends AbstractBaseFixtures implements DependentFixtureInterf
             );
 
             $url->setCreatedAt(
-                DateTimeImmutable::createFromMutable(
+                \DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
 
             $url->setUpdatedAt(
-                DateTimeImmutable::createFromMutable(
+                \DateTimeImmutable::createFromMutable(
                     $this->faker->dateTimeBetween('-100 days', '-1 days')
                 )
             );
 
             // 2. РАСПРЕДЕЛЕНИЕ: 50% ссылок будут пользовательскими, 50% — гостевыми
-            if ($i % 2 === 0) {
+            if (0 === $i % 2) {
                 // Ссылка зарегистрированного пользователя
                 /** @var User $user */
                 $user = $this->getRandomReference('user', User::class);

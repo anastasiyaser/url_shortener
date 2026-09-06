@@ -1,7 +1,12 @@
 <?php
 
-/**
- * Url repository.
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Repository;
@@ -33,26 +38,26 @@ class UrlRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param UrlListInputFiltersDto $filters Input filters DTO
+     * @param User|null              $user    User entity
+     *
      * @return QueryBuilder Query builder
      */
     public function queryAll(UrlListInputFiltersDto $filters, ?User $user = null): QueryBuilder
     {
-        // 1. Твой базовый запрос с partial-выборкой (оставляем без изменений)
         $qb = $this->createQueryBuilder('url')
             ->select(
                 'partial url.{id, createdAt, updatedAt, originalUrl, shortCode, guestEmail, clickCount}',
                 'partial tag.{id, name, createdAt}'
             )
             ->leftJoin('url.tags', 'tag')
-            ->orderBy('url.id', 'DESC'); // Добавим сортировку от новых к старым (профессор просил)
+            ->orderBy('url.id', 'DESC');
 
-        // 2. Твой варсунок безопасности (работает как и раньше)
         if (null !== $user && !in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             $qb->andWhere('url.user = :user')
                 ->setParameter('user', $user);
         }
 
-        // 3. НОВАЯ ЛОГИКА: Фильтрация по тегу из DTO
         if (null !== $filters->tagId) {
             $qb->andWhere('tag.id = :tagId')
                 ->setParameter('tagId', $filters->tagId);

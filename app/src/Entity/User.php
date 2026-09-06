@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class User.
+ * User entity.
  */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -33,8 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Email.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
@@ -44,18 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Roles.
      *
-     * @var list<int, string>
+     * @var list<string>
      */
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
     /**
      * Hashed password.
-     *
-     * @var string|null
      */
     #[ORM\Column(type: 'string')]
-    //#[Assert\NotBlank]
+    // #[Assert\NotBlank]
     private ?string $password = null;
 
     /**
@@ -119,7 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Setter for roles.
      *
-     * @param list<int, string> $roles Roles
+     * @param list<string> $roles Roles
      */
     public function setRoles(array $roles): void
     {
@@ -159,4 +155,3 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 }
-

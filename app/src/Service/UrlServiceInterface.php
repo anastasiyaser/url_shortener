@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Url service interface.
  *
@@ -18,10 +19,11 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 interface UrlServiceInterface
 {
     /**
-     * Get paginated list.
+     * Get paginated list of URLs.
      *
-     * @param int       $page Page number
-     * @param User|null $user Current user
+     * @param int                    $page    Page number
+     * @param User|null              $user    Current user
+     * @param UrlListInputFiltersDto $filters Filters DTO
      *
      * @return PaginationInterface Paginated list
      */

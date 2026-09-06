@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -12,8 +21,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Registration controller.
+ */
 class RegistrationController extends AbstractController
 {
+    /**
+     * Register action.
+     *
+     * @param Request                     $request            HTTP request
+     * @param UserPasswordHasherInterface $userPasswordHasher Password hasher
+     * @param Security                    $security           Security helper
+     * @param EntityManagerInterface      $entityManager      Entity manager
+     *
+     * @return Response HTTP response
+     */
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {

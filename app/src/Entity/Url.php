@@ -1,8 +1,12 @@
 <?php
-/**
- * Url Entity.
+
+/*
+ * This file is part of the Symfony package.
  *
- * (c) Your Name / University License
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Entity;
@@ -325,11 +329,23 @@ class Url
         return (string) $this->getOriginalUrl();
     }
 
+    /**
+     * Getter for user.
+     *
+     * @return User|null User entity
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * Setter for user.
+     *
+     * @param User|null $user User entity
+     *
+     * @return $this
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;

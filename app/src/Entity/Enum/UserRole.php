@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User role.
  */
@@ -26,4 +27,3 @@ enum UserRole: string
         };
     }
 }
-

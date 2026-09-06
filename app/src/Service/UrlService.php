@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Url service.
  *
@@ -48,7 +49,6 @@ class UrlService implements UrlServiceInterface
     public function getPaginatedList(int $page, ?User $user, UrlListInputFiltersDto $filters): PaginationInterface
     {
         return $this->paginator->paginate(
-        // 🚀 Передаем фильтры первым аргументом, а юзера — вторым (как настроили в репозитории)
             $this->urlRepository->queryAll($filters, $user),
             $page,
             self::PAGINATOR_ITEMS_PER_PAGE,
@@ -70,7 +70,6 @@ class UrlService implements UrlServiceInterface
     public function save(Url $url): void
     {
         if (null === $url->getId()) {
-
             if (null === $url->getShortCode()) {
                 $uniqueCode = $this->generateUniqueShortCode();
                 $url->setShortCode($uniqueCode);
@@ -114,5 +113,4 @@ class UrlService implements UrlServiceInterface
 
         return $shortCode;
     }
-
 }

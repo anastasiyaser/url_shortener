@@ -1,7 +1,12 @@
 <?php
 
-/**
- * Url voter.
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Security\Voter;
@@ -13,7 +18,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class UrlVoter.
+ * Url voter.
  */
 final class UrlVoter extends Voter
 {
@@ -34,21 +39,32 @@ final class UrlVoter extends Voter
 
     /**
      * Determines if this voter supports the attribute and subject.
+     *
+     * @param string $attribute Attribute
+     * @param mixed  $subject   Subject
+     *
+     * @return bool Result
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::DELETE, self::EDIT, self::VIEW])
+        return in_array($attribute, [self::DELETE, self::EDIT, self::VIEW], true)
             && $subject instanceof Url;
     }
 
     /**
      * Perform a single access check operation.
+     *
+     * @param string         $attribute Attribute
+     * @param mixed          $subject   Subject
+     * @param TokenInterface $token     Token
+     *
+     * @return bool Result
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        // 🚀 KOŁO RATUNKOWE DLA ADMINA: Jeśli użytkownik jest zalogowany i ma rolę ADMINA -> pozwól na wszystko!
+        // Grant full access to administrator users.
         if ($user instanceof User && in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return true;
         }
@@ -67,34 +83,44 @@ final class UrlVoter extends Voter
 
     /**
      * Checks if user can edit url.
+     *
+     * @param Url                $url  Url entity
+     * @param UserInterface|null $user User
+     *
+     * @return bool Result
      */
     private function canEdit(Url $url, ?UserInterface $user): bool
     {
-        // Gość nie może edytować niczego. Zalogowany użytkownik edytuje tylko swoje.
         return $user instanceof User && $url->getUser() === $user;
     }
 
     /**
      * Checks if user can delete url.
+     *
+     * @param Url                $url  Url entity
+     * @param UserInterface|null $user User
+     *
+     * @return bool Result
      */
     private function canDelete(Url $url, ?UserInterface $user): bool
     {
-        // Gość nie może usuwać niczego. Zalogowany użytkownik usuwa tylko swoje.
         return $user instanceof User && $url->getUser() === $user;
     }
 
     /**
      * Checks if a user can view a url.
+     *
+     * @param Url                $url  Url entity
+     * @param UserInterface|null $user User
+     *
+     * @return bool Result
      */
     private function canView(Url $url, ?UserInterface $user): bool
     {
-        // WYMÓG PROJEKTU: Jeśli adres nie ma przypisanego usera (został stworzony przez gościa),
-        // to każdy (nawet niezalogowany $user === null) ma prawo zobaczyć statystyki tego adresu na liście!
-        if ($url->getUser() === null) {
+        if (null === $url->getUser()) {
             return true;
         }
 
-        // Jeśli adres należy do konkretnego użytkownika, tylko ten użytkownik może go zobaczyć.
         return $user instanceof User && $url->getUser() === $user;
     }
 }

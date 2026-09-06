@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -11,8 +20,17 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Change password form type.
+ */
 class ChangePasswordFormType extends AbstractType
 {
+    /**
+     * Builds the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -42,6 +60,11 @@ class ChangePasswordFormType extends AbstractType
         ;
     }
 
+    /**
+     * Configures the options for this type.
+     *
+     * @param OptionsResolver $resolver The resolver for the options
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([]);

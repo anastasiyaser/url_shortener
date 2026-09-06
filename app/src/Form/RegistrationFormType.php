@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -12,8 +21,17 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Registration form type.
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Builds the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -46,6 +64,11 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * Configures the options.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

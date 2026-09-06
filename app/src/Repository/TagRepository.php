@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Tag;
@@ -34,22 +43,26 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return QueryBuilder
+     * Query all tags.
+     *
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
         return $this->createQueryBuilder('tag');
     }
+
     /**
      * Save entity.
      *
-     * @param Tag $category Tag entity
+     * @param Tag $tag Tag entity
      */
     public function save(Tag $tag): void
     {
         $this->getEntityManager()->persist($tag);
         $this->getEntityManager()->flush();
     }
+
     /**
      * Delete entity.
      *
@@ -61,4 +74,3 @@ class TagRepository extends ServiceEntityRepository
         $this->getEntityManager()->flush();
     }
 }
-

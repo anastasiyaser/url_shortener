@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Category type.
+ * Tag type.
  */
 
 namespace App\Form\Type;
@@ -12,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class CategoryType.
+ * Class TagType.
  */
 class TagType extends AbstractType
 {
@@ -29,14 +30,11 @@ class TagType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add(
-            'name',
-            TextType::class,
-            [
-                'label' => 'label.name',
-                'required' => true,
-                'attr' => ['max_length' => 64],
-            ]);
+        $builder->add('name', TextType::class, [
+            'label' => 'label.name',
+            'required' => true,
+            'attr' => ['max_length' => 64],
+        ]);
     }
 
     /**

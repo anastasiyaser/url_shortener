@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tag controller.
  */
@@ -7,10 +8,7 @@ namespace App\Controller;
 
 use App\Entity\Tag;
 use App\Form\Type\TagType;
-use App\Repository\TagRepository;
-use App\Repository\UrlRepository;
 use App\Service\TagServiceInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,11 +27,12 @@ class TagController extends AbstractController
      * Constructor.
      *
      * @param TagServiceInterface $tagService Tag service
-     * @param TranslatorInterface      $translator      Translator
+     * @param TranslatorInterface $translator Translator
      */
-    public function __construct(private readonly TagServiceInterface $tagService,  private readonly TranslatorInterface $translator)
+    public function __construct(private readonly TagServiceInterface $tagService, private readonly TranslatorInterface $translator)
     {
     }
+
     /**
      * Index action.
      *
@@ -51,6 +50,7 @@ class TagController extends AbstractController
 
         return $this->render('tag/index.html.twig', ['pagination' => $pagination]);
     }
+
     /**
      * Create action.
      *
@@ -85,6 +85,7 @@ class TagController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
     /**
      * View action.
      *
@@ -105,11 +106,12 @@ class TagController extends AbstractController
             ['tag' => $tag]
         );
     }
+
     /**
      * Edit action.
      *
-     * @param Request  $request  HTTP request
-     * @param Tag $tag Tag entity
+     * @param Request $request HTTP request
+     * @param Tag     $tag     Tag entity
      *
      * @return Response HTTP response
      */
@@ -150,11 +152,12 @@ class TagController extends AbstractController
             ]
         );
     }
+
     /**
      * Delete action.
      *
-     * @param Request  $request  HTTP request
-     * @param Tag $tag Tag entity
+     * @param Request $request HTTP request
+     * @param Tag     $tag     Tag entity
      *
      * @return Response HTTP response
      */

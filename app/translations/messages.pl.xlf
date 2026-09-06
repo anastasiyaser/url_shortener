@@ -6,6 +6,10 @@
         <source>action.back_to_list</source>
         <target>Powrót do listy</target>
       </trans-unit>
+      <trans-unit id="action.clear_filter">
+        <source>action.clear_filter</source>
+        <target>wyczyść filtr</target>
+      </trans-unit>
       <trans-unit id="action.create_tag">
         <source>action.create_tag</source>
         <target>utwórz</target>
@@ -29,6 +33,14 @@
       <trans-unit id="action.logout">
         <source>action.logout</source>
         <target>wyloguj się</target>
+      </trans-unit>
+      <trans-unit id="action.register">
+        <source>action.register</source>
+        <target>Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="action.save">
+        <source>action.save</source>
+        <target>zapisz</target>
       </trans-unit>
       <trans-unit id="action.view">
         <source>action.view</source>
@@ -90,9 +102,29 @@
         <source>label.updated_at</source>
         <target>Zaktualizowano</target>
       </trans-unit>
+      <trans-unit id="logged_in_as">
+        <source>logged_in_as</source>
+        <target>jestem...</target>
+      </trans-unit>
+      <trans-unit id="message.created_successfully">
+        <source>message.created_successfully</source>
+        <target>utworzono pomyślnie!</target>
+      </trans-unit>
+      <trans-unit id="message.deleted_successfully">
+        <source>message.deleted_successfully</source>
+        <target>usunięte pomyślnie!</target>
+      </trans-unit>
+      <trans-unit id="message.edited_successfully">
+        <source>message.edited_successfully</source>
+        <target>zaktualizowano pomyślnie!</target>
+      </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
         <target>Lista jest pusta.</target>
+      </trans-unit>
+      <trans-unit id="message.form_error">
+        <source>message.form_error</source>
+        <target>błąd!</target>
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
@@ -110,17 +142,45 @@
         <source>title.login_form</source>
         <target>Formularz logowania</target>
       </trans-unit>
+      <trans-unit id="title.register">
+        <source>title.register</source>
+        <target>Zarejestruj się</target>
+      </trans-unit>
+      <trans-unit id="title.tag_create">
+        <source>title.tag_create</source>
+        <target>Utwórz</target>
+      </trans-unit>
+      <trans-unit id="title.tag_delete">
+        <source>title.tag_delete</source>
+        <target>Usuń</target>
+      </trans-unit>
       <trans-unit id="title.tag_details">
         <source>title.tag_details</source>
         <target>Szczegóły tagu #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.tag_edit">
+        <source>title.tag_edit</source>
+        <target>Edytuj</target>
       </trans-unit>
       <trans-unit id="title.tag_list">
         <source>title.tag_list</source>
         <target>Lista tagów</target>
       </trans-unit>
+      <trans-unit id="title.url_create">
+        <source>title.url_create</source>
+        <target>utwórz coś</target>
+      </trans-unit>
+      <trans-unit id="title.url_delete">
+        <source>title.url_delete</source>
+        <target>Usuń</target>
+      </trans-unit>
       <trans-unit id="title.url_details">
         <source>title.url_details</source>
         <target>Szczegóły URL #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.url_edit">
+        <source>title.url_edit</source>
+        <target>Edytuj</target>
       </trans-unit>
       <trans-unit id="title.url_list">
         <source>title.url_list</source>

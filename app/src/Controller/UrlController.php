@@ -1,20 +1,22 @@
 <?php
-/**
- * Url controller.
+
+/*
+ * This file is part of the Symfony package.
  *
- * (c) Your Name / University License
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Controller;
 
 use App\Dto\UrlListInputFiltersDto;
-use App\Entity\Tag;
 use App\Entity\Url;
-use App\Entity\User;
 use App\Form\Type\UrlEditType;
 use App\Form\Type\UrlType;
 use App\Resolver\UrlListInputFiltersDtoResolver;
-use App\Security\Voter\UrlVoter; // 🚀 IMPORT TWOJEGO VOTERA
+use App\Security\Voter\UrlVoter;
 use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -23,7 +25,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted; // 🚀 IMPORT ATRYBUTU BEZPIECZEŃSTWA
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -45,26 +47,20 @@ class UrlController extends AbstractController
     /**
      * Index action.
      *
-     * @param int $page Page number
+     * @param UrlListInputFiltersDto|null $filters Filters DTO
+     * @param int                         $page    Page number
      *
      * @return Response HTTP response
      */
-    #[Route(
-        name: 'url_index',
-        methods: ['GET']
-    )]
-    public function index(
-        #[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] ?UrlListInputFiltersDto $filters = null,
-        #[MapQueryParameter] int $page = 1
-    ): Response {
-        // Если фильтры не пришли (например, просто зашли на главную), создаем пустой объект
+    #[Route(name: 'url_index', methods: ['GET'])]
+    public function index(#[MapQueryString(resolver: UrlListInputFiltersDtoResolver::class)] ?UrlListInputFiltersDto $filters = null, #[MapQueryParameter] int $page = 1): Response
+    {
         $filters ??= new UrlListInputFiltersDto();
 
-        // Передаем фильтры третьим аргументом в сервис
         $pagination = $this->urlService->getPaginatedList($page, $this->getUser(), $filters);
 
         return $this->render('url/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
@@ -120,7 +116,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET']
     )]
-    #[IsGranted(UrlVoter::VIEW, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
+    #[IsGranted(UrlVoter::VIEW, subject: 'url')]
     public function view(Url $url): Response
     {
         return $this->render(
@@ -143,7 +139,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET', 'POST', 'PUT']
     )]
-    #[IsGranted(UrlVoter::EDIT, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
+    #[IsGranted(UrlVoter::EDIT, subject: 'url')]
     public function edit(Request $request, Url $url): Response
     {
         $form = $this->createForm(
@@ -190,7 +186,7 @@ class UrlController extends AbstractController
         requirements: ['shortCode' => '[a-zA-Z0-9]{6}'],
         methods: ['GET', 'POST', 'DELETE']
     )]
-    #[IsGranted(UrlVoter::DELETE, subject: 'url')] // 🚀 Kontrola dostępu przez Voter
+    #[IsGranted(UrlVoter::DELETE, subject: 'url')]
     public function delete(Request $request, Url $url): Response
     {
         $form = $this->createForm(FormType::class, $url, [
