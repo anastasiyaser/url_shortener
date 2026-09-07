@@ -25,4 +25,11 @@ interface UserServiceInterface
      * @param string $plainPassword Plain password
      */
     public function register(User $user, string $plainPassword): void;
+
+    /**
+     * Update user profile.
+     *
+     * @param User $user User entity
+     */
+    public function updateProfile(User $user): void;
 }

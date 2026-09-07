@@ -26,6 +26,10 @@
         <source>action.edit</source>
         <target>Edit</target>
       </trans-unit>
+      <trans-unit id="action.edit_profile">
+        <source>action.edit_profile</source>
+        <target>edit profile</target>
+      </trans-unit>
       <trans-unit id="action.login">
         <source>action.login</source>
         <target>login</target>
@@ -142,6 +146,10 @@
         <source>message.form_error</source>
         <target>error!</target>
       </trans-unit>
+      <trans-unit id="message.profile_updated">
+        <source>message.profile_updated</source>
+        <target>profile updated!</target>
+      </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
         <target>Record not found.</target>
@@ -149,6 +157,10 @@
       <trans-unit id="title.change_password">
         <source>title.change_password</source>
         <target>change password</target>
+      </trans-unit>
+      <trans-unit id="title.edit_profile">
+        <source>title.edit_profile</source>
+        <target>edit profile</target>
       </trans-unit>
       <trans-unit id="title.login">
         <source>title.login</source>

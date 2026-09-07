@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title.edit_profile'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="h3 mb-3 font-weight-normal">{{ 'title.edit_profile'|trans }}</h1>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <div class="mt-3 d-flex gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary btn-sm rounded-0">
+                    {{ 'action.save'|trans }}
+                </button>
+                <a href="{{ url('url_index') }}" class="btn btn-outline-secondary btn-sm rounded-0">
+                    {{ 'action.back_to_list'|trans }}
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

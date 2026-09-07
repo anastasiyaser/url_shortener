@@ -29,6 +29,11 @@
                         <i class="bi bi-person-circle me-1"></i><strong>{{ app.user.email }}</strong>
                     </li>
                     <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm rounded-0 px-3" href="{{ url('app_profile_edit') }}">
+                            <i class="bi bi-pencil-square me-1"></i>{{ 'action.edit_profile'|trans }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm rounded-0 px-3" href="{{ url('app_change_password') }}">
                             {{ 'title.change_password'|trans }}
                         </a>

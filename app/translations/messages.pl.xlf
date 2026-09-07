@@ -26,6 +26,10 @@
         <source>action.edit</source>
         <target>Edytuj</target>
       </trans-unit>
+      <trans-unit id="action.edit_profile">
+        <source>action.edit_profile</source>
+        <target>edytuj konto</target>
+      </trans-unit>
       <trans-unit id="action.login">
         <source>action.login</source>
         <target>zaloguj się</target>
@@ -126,6 +130,10 @@
         <source>message.form_error</source>
         <target>błąd!</target>
       </trans-unit>
+      <trans-unit id="message.profile_updated">
+        <source>message.profile_updated</source>
+        <target>zaktualizowano dane konta!</target>
+      </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
         <target>Nie znaleziono rekordu.</target>
@@ -133,6 +141,10 @@
       <trans-unit id="title.change_password">
         <source>title.change_password</source>
         <target>zmień hasło</target>
+      </trans-unit>
+      <trans-unit id="title.edit_profile">
+        <source>title.edit_profile</source>
+        <target>edytuj konto</target>
       </trans-unit>
       <trans-unit id="title.login">
         <source>title.login</source>

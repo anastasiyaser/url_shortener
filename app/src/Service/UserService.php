@@ -16,7 +16,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * Class UserService.
+ * Service for managing user entities and operations.
  */
 class UserService implements UserServiceInterface
 {
@@ -41,6 +41,16 @@ class UserService implements UserServiceInterface
         $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
 
+        $this->userRepository->save($user);
+    }
+
+    /**
+     * Update user profile.
+     *
+     * @param User $user User entity
+     */
+    public function updateProfile(User $user): void
+    {
         $this->userRepository->save($user);
     }
 }
