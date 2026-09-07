@@ -13,12 +13,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\UserServiceInterface; // Подключаем наш сервис
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -27,17 +26,24 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     /**
+     * Constructor.
+     *
+     * @param UserServiceInterface $userService User service
+     */
+    public function __construct(private readonly UserServiceInterface $userService)
+    {
+    }
+
+    /**
      * Register action.
      *
-     * @param Request                     $request            HTTP request
-     * @param UserPasswordHasherInterface $userPasswordHasher Password hasher
-     * @param Security                    $security           Security helper
-     * @param EntityManagerInterface      $entityManager      Entity manager
+     * @param Request  $request  HTTP request
+     * @param Security $security Security helper
      *
      * @return Response HTTP response
      */
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, Security $security): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -47,11 +53,7 @@ class RegistrationController extends AbstractController
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
+            $this->userService->register($user, $plainPassword);
 
             return $security->login($user, 'form_login', 'main');
         }
