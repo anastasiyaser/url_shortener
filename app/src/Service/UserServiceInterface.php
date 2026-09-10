@@ -32,4 +32,12 @@ interface UserServiceInterface
      * @param User $user User entity
      */
     public function updateProfile(User $user): void;
+
+    /**
+     * Change user password.
+     *
+     * @param User   $user          User entity
+     * @param string $plainPassword Plain password
+     */
+    public function changePassword(User $user, string $plainPassword): void;
 }

@@ -1,9 +1,12 @@
 <?php
 
-/**
- * Redirect controller.
+/*
+ * This file is part of the Symfony package.
  *
- * (c) Your Name / University License
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Controller;
@@ -40,11 +43,7 @@ class RedirectController extends AbstractController
         $url = $this->urlService->getUrlForRedirect($shortCode);
 
         if (null === $url) {
-            throw $this->createNotFoundException('Ссылка не найдена.');
-        }
-
-        if (!$this->isGranted('URL_VIEW', $url)) {
-            throw $this->createAccessDeniedException('Доступ к этой ссылке запрещен.');
+            throw $this->createNotFoundException();
         }
 
         return $this->redirect($url->getOriginalUrl());

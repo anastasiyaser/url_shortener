@@ -53,4 +53,18 @@ class UserService implements UserServiceInterface
     {
         $this->userRepository->save($user);
     }
+
+    /**
+     * Change user password.
+     *
+     * @param User   $user          User entity
+     * @param string $plainPassword Plain password
+     */
+    public function changePassword(User $user, string $plainPassword): void
+    {
+        $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
+        $user->setPassword($hashedPassword);
+
+        $this->userRepository->save($user);
+    }
 }

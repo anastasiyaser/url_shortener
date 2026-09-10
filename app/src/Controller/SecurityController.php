@@ -7,11 +7,10 @@
 namespace App\Controller;
 
 use App\Form\Type\ChangePasswordFormType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\UserServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -22,6 +21,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class SecurityController extends AbstractController
 {
+    /**
+     * SecurityController constructor.
+     *
+     * @param UserServiceInterface $userService User service instance
+     */
+    public function __construct(private readonly UserServiceInterface $userService)
+    {
+    }
+
     /**
      * Login action.
      *
@@ -60,15 +68,13 @@ class SecurityController extends AbstractController
     /**
      * Change password action.
      *
-     * @param Request                     $request        HTTP request
-     * @param UserPasswordHasherInterface $passwordHasher Password hasher service
-     * @param EntityManagerInterface      $entityManager  Entity manager
+     * @param Request $request HTTP request
      *
      * @return Response HTTP response
      */
     #[Route('/profile/change_password', name: 'app_change_password')]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    public function changePassword(Request $request): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordFormType::class);
@@ -77,11 +83,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('plainPassword')->getData();
 
-            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-            $user->setPassword($hashedPassword);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->userService->changePassword($user, $plainPassword);
 
             $this->addFlash('success', 'flash.password_changed');
 
