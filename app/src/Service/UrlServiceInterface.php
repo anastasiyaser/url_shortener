@@ -51,4 +51,13 @@ interface UrlServiceInterface
      * @param Url $url Url entity
      */
     public function delete(Url $url): void;
+
+    /**
+     * Check if guest daily creation limit (10 URLs/24h) is reached for the given IP.
+     *
+     * @param string $ipAddress Client IP address
+     *
+     * @return bool True if limit reached, false otherwise
+     */
+    public function isGuestLimitReached(string $ipAddress): bool;
 }

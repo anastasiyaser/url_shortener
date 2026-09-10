@@ -87,6 +87,22 @@ class UrlController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (null === $this->getUser()) {
+                $clientIp = (string) $request->getClientIp();
+
+                if ($this->urlService->isGuestLimitReached($clientIp)) {
+                    $this->addFlash(
+                        'danger',
+                        $this->translator->trans('message.guest_limit_reached')
+                    );
+
+                    return $this->redirectToRoute('url_create');
+                }
+
+                // 2. Сохраняем IP-адрес гостя
+                $url->setIpAddress($clientIp);
+            }
+
             $this->urlService->save($url);
 
             $this->addFlash(

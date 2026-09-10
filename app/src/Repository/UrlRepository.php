@@ -87,4 +87,26 @@ class UrlRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($url);
         $this->getEntityManager()->flush();
     }
+
+    /**
+     * Count guest URLs created by a specific IP address in the last 24 hours.
+     *
+     * @param string $ipAddress Client IP address
+     *
+     * @return int Count of created URLs
+     */
+    public function countRecentGuestUrlsByIp(string $ipAddress): int
+    {
+        $date24HoursAgo = new \DateTimeImmutable('-24 hours');
+
+        return (int) $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.ipAddress = :ip')
+            ->andWhere('u.createdAt >= :date')
+            ->andWhere('u.user IS NULL')
+            ->setParameter('ip', $ipAddress)
+            ->setParameter('date', $date24HoursAgo)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

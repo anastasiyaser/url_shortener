@@ -106,6 +106,21 @@ class Url
     private ?User $user = null;
 
     /**
+     * Is blocked flag for admin moderation.
+     */
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    #[Assert\Type('bool')]
+    private bool $isBlocked = false;
+
+    /**
+     * IP address of the creator (used for guest limit tracking).
+     */
+    #[ORM\Column(length: 45, nullable: true)]
+    #[Assert\Type('string')]
+    #[Assert\Length(max: 45)]
+    private ?string $ipAddress = null;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -349,6 +364,54 @@ class Url
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Getter for isBlocked.
+     *
+     * @return bool Is blocked
+     */
+    public function isBlocked(): bool
+    {
+        return $this->isBlocked;
+    }
+
+    /**
+     * Setter for isBlocked.
+     *
+     * @param bool $isBlocked Is blocked flag
+     *
+     * @return $this
+     */
+    public function setIsBlocked(bool $isBlocked): static
+    {
+        $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    /**
+     * Getter for IP address.
+     *
+     * @return string|null IP address
+     */
+    public function getIpAddress(): ?string
+    {
+        return $this->ipAddress;
+    }
+
+    /**
+     * Setter for IP address.
+     *
+     * @param string|null $ipAddress IP address
+     *
+     * @return $this
+     */
+    public function setIpAddress(?string $ipAddress): static
+    {
+        $this->ipAddress = $ipAddress;
 
         return $this;
     }

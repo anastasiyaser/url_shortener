@@ -111,6 +111,18 @@ class UrlService implements UrlServiceInterface
     }
 
     /**
+     * Check if guest daily creation limit (10 URLs/24h) is reached for the given IP.
+     *
+     * @param string $ipAddress Client IP address
+     *
+     * @return bool True if limit reached, false otherwise
+     */
+    public function isGuestLimitReached(string $ipAddress): bool
+    {
+        return $this->urlRepository->countRecentGuestUrlsByIp($ipAddress) >= 10;
+    }
+
+    /**
      * Generates a unique shortcode.
      *
      * @return string Generated shortcode

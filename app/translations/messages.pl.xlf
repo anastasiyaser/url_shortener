@@ -130,6 +130,10 @@
         <source>message.form_error</source>
         <target>błąd!</target>
       </trans-unit>
+      <trans-unit id="message.guest_limit_reached">
+        <source>message.guest_limit_reached</source>
+        <target>przekroczono limit dla niezalogowanych użytkowników</target>
+      </trans-unit>
       <trans-unit id="message.profile_updated">
         <source>message.profile_updated</source>
         <target>zaktualizowano dane konta!</target>

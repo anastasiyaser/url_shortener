@@ -146,6 +146,10 @@
         <source>message.form_error</source>
         <target>error!</target>
       </trans-unit>
+      <trans-unit id="message.guest_limit_reached">
+        <source>message.guest_limit_reached</source>
+        <target>guest limit reached</target>
+      </trans-unit>
       <trans-unit id="message.profile_updated">
         <source>message.profile_updated</source>
         <target>profile updated!</target>
