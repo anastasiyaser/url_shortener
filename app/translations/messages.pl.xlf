@@ -50,6 +50,10 @@
         <source>action.view</source>
         <target>Wyświetl</target>
       </trans-unit>
+      <trans-unit id="flash.password_changed">
+        <source>flash.password_changed</source>
+        <target>hasło zostało pomyślnie zmienione!</target>
+      </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
         <target>Akcje</target>
@@ -141,6 +145,14 @@
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
         <target>Nie znaleziono rekordu.</target>
+      </trans-unit>
+      <trans-unit id="message.status_updated">
+        <source>message.status_updated</source>
+        <target>Status został pomyślnie zmieniony</target>
+      </trans-unit>
+      <trans-unit id="message.url_blocked">
+        <source>message.url_blocked</source>
+        <target>Ta strona została zablokowana przez administratora</target>
       </trans-unit>
       <trans-unit id="title.change_password">
         <source>title.change_password</source>

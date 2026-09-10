@@ -158,6 +158,14 @@
         <source>message.record_not_found</source>
         <target>Record not found.</target>
       </trans-unit>
+      <trans-unit id="message.status_updated">
+        <source>message.status_updated</source>
+        <target>Status has been successfully updated.</target>
+      </trans-unit>
+      <trans-unit id="message.url_blocked">
+        <source>message.url_blocked</source>
+        <target>This link has been blocked by an administrator.</target>
+      </trans-unit>
       <trans-unit id="title.change_password">
         <source>title.change_password</source>
         <target>change password</target>

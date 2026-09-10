@@ -81,6 +81,21 @@
                                     {{ 'action.delete'|trans }}
                                 </a>
                             {% endif %}
+                            <td class="align-middle text-center">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <form action="{{ url('admin_url_toggle_block', {id: url.id}) }}" method="post" class="d-inline">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('toggle-block' ~ url.id) }}">
+                                        <button type="submit" class="btn btn-xs p-1 px-2 {{ url.isBlocked() ? 'btn-danger' : 'btn-success' }}" style="font-size: 0.75rem; font-weight: bold;">
+                                            <i class="bi {{ url.isBlocked() ? 'bi-lock-fill' : 'bi-check-lg' }}"></i>
+                                            {{ url.isBlocked() ? 'OFF' : 'ON' }}
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <span class="badge {{ url.isBlocked() ? 'bg-danger' : 'bg-success' }}">
+                                     {{ url.isBlocked() ? 'OFF' : 'ON' }}
+                                    </span>
+                                {% endif %}
+                            </td>
                         </div>
                     </td>
                 </tr>

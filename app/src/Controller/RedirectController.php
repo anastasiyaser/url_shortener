@@ -15,6 +15,7 @@ use App\Service\UrlServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class RedirectController.
@@ -25,8 +26,9 @@ class RedirectController extends AbstractController
      * Constructor.
      *
      * @param UrlServiceInterface $urlService Url service
+     * @param TranslatorInterface $translator Translator
      */
-    public function __construct(private readonly UrlServiceInterface $urlService)
+    public function __construct(private readonly UrlServiceInterface $urlService, private readonly TranslatorInterface $translator)
     {
     }
 
@@ -43,7 +45,11 @@ class RedirectController extends AbstractController
         $url = $this->urlService->getUrlForRedirect($shortCode);
 
         if (null === $url) {
-            throw $this->createNotFoundException();
+            throw $this->createNotFoundException($this->translator->trans('message.record_not_found'));
+        }
+
+        if ($url->isBlocked()) {
+            throw $this->createNotFoundException($this->translator->trans('message.record_not_found'));
         }
 
         return $this->redirect($url->getOriginalUrl());
