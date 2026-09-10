@@ -2,9 +2,17 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
+      <trans-unit id="action.actions">
+        <source>action.actions</source>
+        <target>Actions</target>
+      </trans-unit>
       <trans-unit id="action.back_to_list">
         <source>action.back_to_list</source>
         <target>Back to list</target>
+      </trans-unit>
+      <trans-unit id="action.change_password">
+        <source>action.change_password</source>
+        <target>Change Password</target>
       </trans-unit>
       <trans-unit id="action.clear_filter">
         <source>action.clear_filter</source>
@@ -30,6 +38,10 @@
         <source>action.edit_profile</source>
         <target>edit profile</target>
       </trans-unit>
+      <trans-unit id="action.edit_user">
+        <source>action.edit_user</source>
+        <target>Edit User</target>
+      </trans-unit>
       <trans-unit id="action.login">
         <source>action.login</source>
         <target>login</target>
@@ -53,6 +65,10 @@
       <trans-unit id="flash.password_changed">
         <source>flash.password_changed</source>
         <target>password changed!</target>
+      </trans-unit>
+      <trans-unit id="flash.user_updated">
+        <source>flash.user_updated</source>
+        <target>User data has been successfully updated.</target>
       </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
@@ -106,6 +122,10 @@
         <source>label.repeat_password</source>
         <target>repeat new password</target>
       </trans-unit>
+      <trans-unit id="label.roles">
+        <source>label.roles</source>
+        <target>Roles</target>
+      </trans-unit>
       <trans-unit id="label.short_code">
         <source>label.short_code</source>
         <target>Short code</target>
@@ -157,6 +177,10 @@
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
         <target>Record not found.</target>
+      </trans-unit>
+      <trans-unit id="message.reset_password_for">
+        <source>message.reset_password_for</source>
+        <target>Changing password for user: %email%</target>
       </trans-unit>
       <trans-unit id="message.status_updated">
         <source>message.status_updated</source>
@@ -229,6 +253,18 @@
       <trans-unit id="title.url_view">
         <source>title.url_view</source>
         <target>Url view #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.user_edit">
+        <source>title.user_edit</source>
+        <target>Edit User</target>
+      </trans-unit>
+      <trans-unit id="title.user_list">
+        <source>title.user_list</source>
+        <target>User List</target>
+      </trans-unit>
+      <trans-unit id="title.user_password_reset">
+        <source>title.user_password_reset</source>
+        <target>Change User Password</target>
       </trans-unit>
     </body>
   </file>

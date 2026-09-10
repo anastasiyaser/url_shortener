@@ -2,9 +2,17 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
     <body>
+      <trans-unit id="action.actions">
+        <source>action.actions</source>
+        <target>Akcje</target>
+      </trans-unit>
       <trans-unit id="action.back_to_list">
         <source>action.back_to_list</source>
         <target>Powrót do listy</target>
+      </trans-unit>
+      <trans-unit id="action.change_password">
+        <source>action.change_password</source>
+        <target>Zmień hasło</target>
       </trans-unit>
       <trans-unit id="action.clear_filter">
         <source>action.clear_filter</source>
@@ -30,6 +38,10 @@
         <source>action.edit_profile</source>
         <target>edytuj konto</target>
       </trans-unit>
+      <trans-unit id="action.edit_user">
+        <source>action.edit_user</source>
+        <target>Edytuj użytkownika</target>
+      </trans-unit>
       <trans-unit id="action.login">
         <source>action.login</source>
         <target>zaloguj się</target>
@@ -53,6 +65,10 @@
       <trans-unit id="flash.password_changed">
         <source>flash.password_changed</source>
         <target>hasło zostało pomyślnie zmienione!</target>
+      </trans-unit>
+      <trans-unit id="flash.user_updated">
+        <source>flash.user_updated</source>
+        <target>Dane użytkownika zostały pomyślnie zaktualizowane.</target>
       </trans-unit>
       <trans-unit id="label.actions">
         <source>label.actions</source>
@@ -93,6 +109,10 @@
       <trans-unit id="label.password">
         <source>label.password</source>
         <target>Hasło</target>
+      </trans-unit>
+      <trans-unit id="label.roles">
+        <source>label.roles</source>
+        <target>Role</target>
       </trans-unit>
       <trans-unit id="label.short_code">
         <source>label.short_code</source>
@@ -145,6 +165,10 @@
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
         <target>Nie znaleziono rekordu.</target>
+      </trans-unit>
+      <trans-unit id="message.reset_password_for">
+        <source>message.reset_password_for</source>
+        <target>Zmiana hasła dla użytkownika: %email%</target>
       </trans-unit>
       <trans-unit id="message.status_updated">
         <source>message.status_updated</source>
@@ -217,6 +241,18 @@
       <trans-unit id="title.url_view">
         <source>title.url_view</source>
         <target>Widok URL #%id%</target>
+      </trans-unit>
+      <trans-unit id="title.user_edit">
+        <source>title.user_edit</source>
+        <target>Edytuj użytkownika</target>
+      </trans-unit>
+      <trans-unit id="title.user_list">
+        <source>title.user_list</source>
+        <target>Lista użytkowników</target>
+      </trans-unit>
+      <trans-unit id="title.user_password_reset">
+        <source>title.user_password_reset</source>
+        <target>Zmień hasło użytkownika</target>
       </trans-unit>
     </body>
   </file>

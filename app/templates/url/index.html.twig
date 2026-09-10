@@ -51,7 +51,19 @@
                             <code>{{ url.shortCode }}</code>
                         </a>
                     </td>
-                    <td>{{ url.guestEmail }}</td>
+                    <td>
+                        {% if url.user %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ url('admin_user_edit', {id: url.user.id}) }}" class="text-decoration-none" title="{{ 'action.edit_user'|trans }}">
+                                    {{ url.user.email }}
+                                </a>
+                            {% else %}
+                                {{ url.user.email }}
+                            {% endif %}
+                        {% else %}
+                            {{ url.guestEmail }} <span class="badge bg-light text-dark">Guest</span>
+                        {% endif %}
+                    </td>
                     <td><span class="badge bg-secondary">{{ url.clickCount }}</span></td>
                     <td>
                         {% set colors = ['primary-subtle', 'success-subtle', 'danger-subtle', 'warning-subtle', 'info-subtle', 'secondary-subtle'] %}
@@ -64,38 +76,39 @@
                             </a>
                         {% endfor %}
                     </td>
-                    <td class="text-end">
-                        <div class="btn-group" role="group">
-                            {% if is_granted('URL_VIEW', url) %}
-                                <a class="btn btn-sm btn-outline-primary" href="{{ url('url_view', {shortCode: url.shortCode}) }}" title="{{ 'action.view'|trans }}">
-                                    {{ 'action.view'|trans }}
-                                </a>
-                            {% endif %}
-                            {% if is_granted('URL_EDIT', url) %}
-                                <a class="btn btn-sm btn-outline-warning" href="{{ url('url_edit', {shortCode: url.shortCode}) }}" title="{{ 'action.edit'|trans }}">
-                                    {{ 'action.edit'|trans }}
-                                </a>
-                            {% endif %}
-                            {% if is_granted('URL_DELETE', url) %}
-                                <a class="btn btn-sm btn-outline-danger" href="{{ url('url_delete', {shortCode: url.shortCode}) }}" title="{{ 'action.delete'|trans }}">
-                                    {{ 'action.delete'|trans }}
-                                </a>
-                            {% endif %}
-                            <td class="align-middle text-center">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <form action="{{ url('admin_url_toggle_block', {id: url.id}) }}" method="post" class="d-inline">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('toggle-block' ~ url.id) }}">
-                                        <button type="submit" class="btn btn-xs p-1 px-2 {{ url.isBlocked() ? 'btn-danger' : 'btn-success' }}" style="font-size: 0.75rem; font-weight: bold;">
-                                            <i class="bi {{ url.isBlocked() ? 'bi-lock-fill' : 'bi-check-lg' }}"></i>
-                                            {{ url.isBlocked() ? 'OFF' : 'ON' }}
-                                        </button>
-                                    </form>
-                                {% else %}
-                                    <span class="badge {{ url.isBlocked() ? 'bg-danger' : 'bg-success' }}">
-                                     {{ url.isBlocked() ? 'OFF' : 'ON' }}
-                                    </span>
+                    <td class="text-end text-nowrap">
+                        <div class="d-inline-flex align-items-center gap-1">
+                            <div class="btn-group" role="group">
+                                {% if is_granted('URL_VIEW', url) %}
+                                    <a class="btn btn-sm btn-outline-primary" href="{{ url('url_view', {shortCode: url.shortCode}) }}" title="{{ 'action.view'|trans }}">
+                                        {{ 'action.view'|trans }}
+                                    </a>
                                 {% endif %}
-                            </td>
+                                {% if is_granted('URL_EDIT', url) %}
+                                    <a class="btn btn-sm btn-outline-warning" href="{{ url('url_edit', {shortCode: url.shortCode}) }}" title="{{ 'action.edit'|trans }}">
+                                        {{ 'action.edit'|trans }}
+                                    </a>
+                                {% endif %}
+                                {% if is_granted('URL_DELETE', url) %}
+                                    <a class="btn btn-sm btn-outline-danger" href="{{ url('url_delete', {shortCode: url.shortCode}) }}" title="{{ 'action.delete'|trans }}">
+                                        {{ 'action.delete'|trans }}
+                                    </a>
+                                {% endif %}
+                            </div>
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <form action="{{ url('admin_url_toggle_block', {id: url.id}) }}" method="post" class="d-inline m-0">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('toggle-block' ~ url.id) }}">
+                                    <button type="submit" class="btn btn-sm {{ url.isBlocked() ? 'btn-danger' : 'btn-success' }}" title="Toggle Block">
+                                        <i class="bi {{ url.isBlocked() ? 'bi-lock-fill' : 'bi-check-lg' }}"></i>
+                                        {{ url.isBlocked() ? 'OFF' : 'ON' }}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <span class="badge {{ url.isBlocked() ? 'bg-danger' : 'bg-success' }}">
+                                    {{ url.isBlocked() ? 'OFF' : 'ON' }}
+                                </span>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>

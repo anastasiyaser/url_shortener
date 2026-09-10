@@ -67,4 +67,14 @@ class UserService implements UserServiceInterface
 
         $this->userRepository->save($user);
     }
+
+    /**
+     * Get all users.
+     *
+     * @return array<int, User> List of users
+     */
+    public function findAll(): array
+    {
+        return $this->userRepository->findAll();
+    }
 }
